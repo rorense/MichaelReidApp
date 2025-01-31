@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, TouchableOpacity, SafeAreaView, Dimensions, Button, Alert } from "react-native";
 import React from "react";
 import { Image } from "react-native";
+import { Link } from "expo-router";
 
 const OnboardingScreen= () => {
   return (
@@ -20,6 +21,7 @@ const OnboardingScreen= () => {
               color="#7D1325"
             />
           </TouchableOpacity>
+          <Link className="text-center" href="/profile">Go to Profile</Link>
         </View>
     </SafeAreaView>
   );
