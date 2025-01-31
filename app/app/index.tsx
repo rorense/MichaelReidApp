@@ -1,31 +1,28 @@
-import { Text, View, StyleSheet, TouchableOpacity, SafeAreaView, Dimensions } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, SafeAreaView, Dimensions, Button, Alert } from "react-native";
 import React from "react";
+import { Image } from "react-native";
 
 const OnboardingScreen= () => {
   return (
-    <SafeAreaView style={styles.container}>
-        <View style={styles.textGroup}>
-          <Text style={styles.text}>Welcome to your</Text>
-          <Text style={styles.text}>art gallery</Text>
+    <SafeAreaView className="flex-1 flex bg-[#FFFBF6]">
+      <Image
+        source={require('../assets/image/Logo.png')}
+        style={{ width: 100, height: 100 }}
+        className="mt-10 ml-10"
+      />
+        <View className="mt-[100px] pl-5">
+          <Text className="text-[#7D1325] text-4xl">Welcome to your</Text>
+          <Text className="text-[#7D1325] text-4xl">art gallery</Text>
+          <TouchableOpacity className="w-[200px] mt-[200px] mx-[auto] my-0">
+            <Button 
+              title="Get Started"
+              onPress={() => Alert.alert('Simple Button Pressed')}
+              color="#7D1325"
+            />
+          </TouchableOpacity>
         </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFBF6',
-  },
-  text: {
-    color: '#7D1325',
-    fontFamily: "DM Sans",
-    fontSize: 36,
-  },
-  textGroup: {
-    paddingTop: 100,
-    paddingLeft: 20,
-  }
-})
 
 export default OnboardingScreen;
