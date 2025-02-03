@@ -1,14 +1,49 @@
 import { View, Text, ScrollView, Image } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Logo from "../../assets/image/Logo.png";
+import FormField from "../components/FormField";
+import CustomButton from "../components/CustomButton";
+import { Link } from "expo-router";
 
 const SignInPage = () => {
+	const [form, setForm] = useState({
+		email: "",
+		password: "",
+	});
+
+	const [isSubmitting, setIsSubmitting] = useState(false);
+
+	const submit = () => {};
+
 	return (
 		<SafeAreaView className="h-full bg-background">
 			<ScrollView>
-				<View className="w-full justify-center min-h-[85vh] px-4 my-6">
-					<Image source={require(".../assets/image/Logo.png")} />
+				<View className="w-full justify-center min-h-[85vh] px-4 mt-10">
+					<Text className="text-3xl text-primary text-center font-DMSans">Log In to Michael Reids</Text>
+					<FormField
+						title="Email"
+						value={form.email}
+						handleChangeText={(e) => setForm({ ...form, email: e })}
+						otherStyles="mt-7"
+						keyboardType="email-address"
+					/>
+					<FormField
+						title="Password"
+						value={form.password}
+						handleChangeText={(e) => setForm({ ...form, password: e })}
+						otherStyles="mt-7"
+					/>
+					<CustomButton
+						title="Sign In"
+						handlePress={submit}
+						isLoading={isSubmitting}
+					/>
+					<View>
+						<Text className="text-center font-DMSans mt-4">Don't have an account?</Text>
+						<Link href="/sign-up">
+							<Text className="text-center font-DMSans mt-5 text-red-950">Create an account</Text>
+						</Link>
+					</View>
 				</View>
 			</ScrollView>
 		</SafeAreaView>
