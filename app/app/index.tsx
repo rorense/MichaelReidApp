@@ -9,6 +9,20 @@ const OnboardingScreen = () => {
 	const fadeAnim3 = useState(new Animated.Value(0))[0];
 	const buttonAnim = useState(new Animated.Value(1))[0];
 
+	// Create an animated value for rotation
+	const rotateAnim = useState(new Animated.Value(0))[0];
+
+	useEffect(() => {
+		// Start the rotation animation
+		Animated.loop(
+			Animated.timing(rotateAnim, {
+				toValue: 1, // Rotate from 0 to 1 (360 degrees)
+				duration: 4000, // Duration of one full rotation
+				useNativeDriver: true, // Use native driver for better performance
+			})
+		).start();
+	}, []);
+
 	useEffect(() => {
 		Animated.parallel([
 			Animated.timing(fadeAnim1, {
@@ -33,15 +47,26 @@ const OnboardingScreen = () => {
 		if (step < 3) setStep((prev) => prev + 1);
 	};
 
+	// Interpolate the rotation value
+	const rotateInterpolation = rotateAnim.interpolate({
+		inputRange: [0, 1],
+		outputRange: ["0deg", "360deg"], // Rotate from 0 to 360 degrees
+	});
+
 	return (
-		<SafeAreaView className="flex-1 bg-[#FFFBF6]">
-			<Image
+		<SafeAreaView className="flex-1 bg-background w-full">
+			{/* Rotating Image */}
+			<Animated.Image
 				source={require("../assets/image/Logo.png")}
-				style={{ width: 100, height: 100 }}
+				style={{
+					width: 120,
+					height: 120,
+					transform: [{ rotate: rotateInterpolation }], // Apply rotation
+				}}
 				className="mt-10 ml-10"
 			/>
 
-			<View className="flex-1 px-5 mt-8">
+			<View className="flex-1 px-5 mt-8 w-full">
 				{/* Text Content with Separated Lines */}
 				<View className="flex-1">
 					<Animated.View style={{ opacity: fadeAnim1 }}>
@@ -75,12 +100,12 @@ const OnboardingScreen = () => {
 						<View className="w-full items-center gap-y-4">
 							<Link
 								href="/sign-up"
-								className="w-[70%] bg-primary py-4 rounded-full items-center">
+								className="w-[70%] bg-primary py-4 rounded-full items-center justify-center">
 								<Text className="text-white font-DMSans text-lg text-center">Sign Up</Text>
 							</Link>
 							<Link
 								href="/sign-in"
-								className="w-[70%] border-2 border-primary py-4 rounded-full items-center">
+								className="w-[70%] border-2 border-primary py-4 rounded-full items-center justify-center">
 								<Text className="text-primary font-DMSans text-lg text-center">Login</Text>
 							</Link>
 						</View>

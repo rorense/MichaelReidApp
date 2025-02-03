@@ -8,6 +8,7 @@ module.exports = {
 		extend: {
 			colors: {
 				primary: "#7D1325",
+				background: "#FFFBF6",
 			},
 			fontFamily: {
 				DMSans: ["DM Sans", "sans-serif"],
