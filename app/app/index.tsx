@@ -1,6 +1,7 @@
 import { Text, View, TouchableOpacity, SafeAreaView, Image, Animated } from "react-native";
 import React, { useState, useEffect } from "react";
-import { Link } from "expo-router";
+import { Link, Redirect } from "expo-router";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const OnboardingScreen = () => {
 	const [step, setStep] = useState(1);
@@ -52,6 +53,10 @@ const OnboardingScreen = () => {
 		inputRange: [0, 1],
 		outputRange: ["0deg", "360deg"], // Rotate from 0 to 360 degrees
 	});
+
+	const { isLoading, isLoggedIn } = useGlobalContext();
+
+	if (!isLoading && isLoggedIn) return <Redirect href="/home" />;
 
 	return (
 		<SafeAreaView className="flex-1 bg-background w-full">
