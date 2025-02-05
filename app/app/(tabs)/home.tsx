@@ -1,8 +1,15 @@
-import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
+import Header from "../components/header";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
+const Drawer = createDrawerNavigator();
 
 const home = () => {
-	return <SafeAreaView className="bg-">Home</SafeAreaView>;
+	return (
+		<>
+			<Header />
+		</>
+	);
 };
 
 export default home;

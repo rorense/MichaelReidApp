@@ -1,37 +1,21 @@
-import { View, Text } from "react-native";
+import { Stack } from "expo-router";
 import React from "react";
-import { Tabs, Redirect } from "expo-router";
+import DrawerLayout from "../components/DrawerLayout";
 
 const TabsLayout = () => {
 	return (
-		<>
-			<Tabs>
-				<Tabs.Screen
+		<DrawerLayout>
+			<Stack>
+				<Stack.Screen
 					name="home"
-					options={{
-						title: "Home",
-						headerShown: false,
-						tabBarInactiveTintColor: "#CDCDE0",
-					}}
+					options={{ headerShown: false }}
 				/>
-				<Tabs.Screen
+				<Stack.Screen
 					name="addArt"
-					options={{
-						title: "Add",
-						headerShown: false,
-						tabBarInactiveTintColor: "#CDCDE0",
-					}}
+					options={{ headerShown: false }}
 				/>
-				<Tabs.Screen
-					name="profile"
-					options={{
-						title: "Profile",
-						headerShown: false,
-						tabBarInactiveTintColor: "#CDCDE0",
-					}}
-				/>
-			</Tabs>
-		</>
+			</Stack>
+		</DrawerLayout>
 	);
 };
 
