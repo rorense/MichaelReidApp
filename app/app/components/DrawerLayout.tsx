@@ -1,10 +1,23 @@
+import { signOut } from "@/lib/appwrite";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { Link } from "expo-router";
+import { Link, router, useNavigation } from "expo-router";
 import { Drawer } from "expo-router/drawer";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const DrawerContent = (props: any) => {
+	const navigation = useNavigation();
+
+	const handleSignOut = async () => {
+		try {
+			await signOut();
+			Alert.alert("Success", "Logged out successfully");
+			router.replace("/sign-in");
+		} catch (error) {
+			Alert.alert("Error", "Something went wrong");
+		}
+	};
+
 	return (
 		<DrawerContentScrollView {...props}>
 			<View>
@@ -13,7 +26,7 @@ const DrawerContent = (props: any) => {
 					<Text className="text-3xl font-DMSans">Home</Text>
 					<DrawerItem
 						label="home"
-						onPress={() => props.navigation.navigate("(tabs )/home")}
+						onPress={() => props.navigation.navigate("(tabs)/home")}
 					/>
 				</Link>
 				<Link href="/addArt">
@@ -23,6 +36,9 @@ const DrawerContent = (props: any) => {
 						onPress={() => props.navigation.navigate("(tabs)/addArt")}
 					/>
 				</Link>
+				<TouchableOpacity onPress={handleSignOut}>
+					<Text className="text-3xl font-DMSans bottom-0">Sign Out</Text>
+				</TouchableOpacity>
 			</View>
 		</DrawerContentScrollView>
 	);

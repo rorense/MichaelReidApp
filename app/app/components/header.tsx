@@ -9,7 +9,7 @@ const Header = () => {
 	const navigation = useNavigation();
 
 	return (
-		<SafeAreaView className="bg-background flex-1 h-full">
+		<SafeAreaView className="bg-background">
 			<View className="flex flex-row m-7 justify-between">
 				<View className="w-1/6">
 					{/* Menu Icon */}

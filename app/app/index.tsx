@@ -2,6 +2,7 @@ import { Text, View, TouchableOpacity, SafeAreaView, Image, Animated } from "rea
 import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "expo-router";
 import { useGlobalContext } from "@/context/GlobalProvider";
+import { clearSessionOnStart } from "@/lib/appwrite";
 
 const OnboardingScreen = () => {
 	const [step, setStep] = useState(1);
@@ -12,6 +13,10 @@ const OnboardingScreen = () => {
 
 	// Create an animated value for rotation
 	const rotateAnim = useState(new Animated.Value(0))[0];
+
+	useEffect(() => {
+		clearSessionOnStart();
+	}, []);
 
 	useEffect(() => {
 		// Start the rotation animation

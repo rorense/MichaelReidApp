@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Client, Account, ID, Databases, Query } from "react-native-appwrite";
 // Init your React Native SDK
 const client = new Client();
@@ -43,7 +44,7 @@ export const createUser = async (email, password, username) => {
 };
 
 // Sign in Validation
-export const signIn = async (email, password) => {
+export const SignIn = async (email, password) => {
 	try {
 		const session = await account.createEmailPasswordSession(email, password);
 		return session;
@@ -66,5 +67,25 @@ export const getCurrentUser = async () => {
 		return currentUser.documents[0];
 	} catch (error) {
 		throw new Error(error);
+	}
+};
+
+// Sign Out Action
+export const signOut = async () => {
+	try {
+		await account.deleteSession("current"); // Delete the current session
+		return true; // Indicate successful sign-out
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+// Clear session when app reloads
+export const clearSessionOnStart = async () => {
+	try {
+		await account.deleteSession("current");
+		console.log("session cleared");
+	} catch (error) {
+		console.log("Error clearing session on start", error);
 	}
 };
