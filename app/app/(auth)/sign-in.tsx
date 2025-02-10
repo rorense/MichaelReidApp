@@ -49,6 +49,7 @@ const SignInPage = () => {
 						value={form.email}
 						handleChangeText={(e: any) => setForm({ ...form, email: e })}
 						otherStyles="mt-7"
+						placeholder="Enter your email....."
 						// keyboardType="email-address"
 					/>
 					<FormField
@@ -56,11 +57,13 @@ const SignInPage = () => {
 						value={form.password}
 						handleChangeText={(e: any) => setForm({ ...form, password: e })}
 						otherStyles="mt-7"
+						placeholder="Enter your password....."
 					/>
 					<CustomButton
 						title="Sign In"
 						handlePress={submit}
 						isLoading={isSubmitting}
+						color="brown"
 					/>
 					<View>
 						<Text className="text-center font-DMSans mt-4">Don't have an account?</Text>

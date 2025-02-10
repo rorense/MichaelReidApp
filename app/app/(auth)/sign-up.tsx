@@ -48,12 +48,14 @@ const SignUpPage = () => {
 						value={form.username}
 						handleChangeText={(e: any) => setForm({ ...form, username: e })}
 						otherStyles="mt-7"
+						placeholder="Enter username....."
 					/>
 					<FormField
 						title="Email"
 						value={form.email}
 						handleChangeText={(e: any) => setForm({ ...form, email: e })}
 						otherStyles="mt-7"
+						placeholder="Enter email....."
 						// keyboardType="email-address"
 					/>
 					<FormField
@@ -61,11 +63,13 @@ const SignUpPage = () => {
 						value={form.password}
 						handleChangeText={(e: any) => setForm({ ...form, password: e })}
 						otherStyles="mt-7"
+						placeholder="Enter password....."
 					/>
 					<CustomButton
 						title="Sign Up"
 						handlePress={submit}
 						isLoading={isSubmitting}
+						color="brown"
 					/>
 					<View>
 						<Text className="text-center font-DMSans mt-4">Already have an account?</Text>
