@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Client, Account, ID, Databases, Query } from "react-native-appwrite";
+import { Client, Account, ID, Databases, Query, Storage } from "react-native-appwrite";
 // Init your React Native SDK
 const client = new Client();
 
@@ -22,6 +22,7 @@ client
 
 const account = new Account(client);
 const databases = new Databases(client);
+const storage = new Storage(client);
 
 // Create User action
 export const createUser = async (email, password, username) => {
@@ -87,5 +88,40 @@ export const clearSessionOnStart = async () => {
 		console.log("session cleared");
 	} catch (error) {
 		console.log("Error clearing session on start", error);
+	}
+};
+
+export const uploadFile = async (file) => {
+	if (!file) return;
+	const asset = { name: file.name, type: file.mimeType, size: file.fileSize, uri: file.uri };
+
+	try {
+		const uploadedFile = await storage.createFile(appwriteConfig.storageId, ID.unique(), asset);
+		const fileUrl = storage.getFilePreview(appwriteConfig.storageId, uploadedFile.$id, 2000, 2000, "top", 100);
+
+		if (!fileUrl) throw new Error("Failed to get file preview");
+
+		return fileUrl;
+	} catch (error) {
+		throw new Error(error.message || "Error Uploading File");
+	}
+};
+
+// Creating and Pushing new Artwork into the database
+export const createArtwork = async (form) => {
+	try {
+		const [image] = await Promise.all([uploadFile(form.images)]);
+		const newArtwork = await databases.createDocument(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, ID.unique(), {
+			title: form.title,
+			year: form.year,
+			price: form.price,
+			edition: form.edition,
+			dimensions: form.dimensions,
+			images: image,
+		});
+
+		return newArtwork;
+	} catch (error) {
+		throw new Error(error);
 	}
 };
