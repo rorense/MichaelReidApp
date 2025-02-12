@@ -91,15 +91,27 @@ export const clearSessionOnStart = async () => {
 	}
 };
 
+export const getFilePreview = async (fileId) => {
+	let fileUrl;
+
+	try {
+		fileUrl = storage.getFilePreview(appwriteConfig.storageId, fileId, 2000, 2000, "top", 100);
+		if (!fileUrl) throw new Error("Failed to get file preview");
+
+		return fileUrl;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+// Uploading file to bucket storage
 export const uploadFile = async (file) => {
 	if (!file) return;
 	const asset = { name: file.name, type: file.mimeType, size: file.fileSize, uri: file.uri };
 
 	try {
 		const uploadedFile = await storage.createFile(appwriteConfig.storageId, ID.unique(), asset);
-		const fileUrl = storage.getFilePreview(appwriteConfig.storageId, uploadedFile.$id, 2000, 2000, "top", 100);
-
-		if (!fileUrl) throw new Error("Failed to get file preview");
+		const fileUrl = await getFilePreview(uploadedFile.$id);
 
 		return fileUrl;
 	} catch (error) {
@@ -121,6 +133,15 @@ export const createArtwork = async (form) => {
 		});
 
 		return newArtwork;
+	} catch (error) {
+		throw new Error("Failed Creating Artwork Error", error);
+	}
+};
+
+export const getAllArtworks = async () => {
+	try {
+		const artworks = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId);
+		return artworks.documents;
 	} catch (error) {
 		throw new Error(error);
 	}

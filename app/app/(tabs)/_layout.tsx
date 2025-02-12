@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import React from "react";
 import DrawerLayout from "../components/DrawerLayout";
+import ArtworkPage from "./artworkpage";
 
 const TabsLayout = () => {
 	return (
@@ -13,6 +14,11 @@ const TabsLayout = () => {
 				<Stack.Screen
 					name="addArt"
 					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name="artworkpage"
+					options={{ headerShown: false }}
+					component={ArtworkPage}
 				/>
 			</Stack>
 		</DrawerLayout>

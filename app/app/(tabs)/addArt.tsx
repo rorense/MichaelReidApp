@@ -14,7 +14,14 @@ const AddArt = () => {
 	const [step, setStep] = useState(1);
 	const { user } = useGlobalContext();
 	const [uploading, setUploading] = useState(false);
-	const [form, setForm] = useState({
+	const [form, setForm] = useState<{
+		title: string;
+		year: string;
+		price: string;
+		edition: string;
+		dimensions: string;
+		images: { name: string; MimeType: string; fileSize: number; uri: string } | null;
+	}>({
 		title: "",
 		year: "",
 		price: "",
@@ -66,7 +73,7 @@ const AddArt = () => {
 			Alert.alert("Success", "Artwork added successfully");
 			router.push("/home");
 		} catch (error) {
-			Alert.alert("Error", error.message);
+			Alert.alert("Error", (error as Error).message);
 		} finally {
 			setForm({
 				title: "",
