@@ -1,8 +1,8 @@
 import Header from "../components/Header";
 import useAppwrite from "../../lib/useAppwrite";
-import { getAllArtworks } from "@/lib/appwrite";
+import { createDummyData, getAllArtworks } from "@/lib/appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList, Text } from "react-native";
+import { Alert, FlatList, Text, TouchableOpacity } from "react-native";
 import ArtworkCard from "../components/ArtworkCard";
 
 const Home = () => {

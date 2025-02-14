@@ -26,14 +26,14 @@ const DrawerContent = (props: any) => {
 					<Text className="text-3xl font-DMSans">Home</Text>
 					<DrawerItem
 						label="home"
-						onPress={() => props.navigation.navigate("(tabs)/home")}
+						onPress={() => props.navigation.navigate("/home")}
 					/>
 				</Link>
 				<Link href="/addArt">
 					<Text className="text-3xl font-DMSans mt-5">Add Art</Text>
 					<DrawerItem
 						label="addArt"
-						onPress={() => props.navigation.navigate("(tabs)/addArt")}
+						onPress={() => props.navigation.navigate("/addArt")}
 					/>
 				</Link>
 				<TouchableOpacity onPress={handleSignOut}>
@@ -49,9 +49,7 @@ export default function DrawerLayout() {
 		<GestureHandlerRootView>
 			<Drawer
 				drawerContent={(props) => <DrawerContent {...props} />}
-				screenOptions={{ headerShown: false }}>
-				<Drawer.Screen name="(tabs)" />
-			</Drawer>
+				screenOptions={{ headerShown: false }}></Drawer>
 		</GestureHandlerRootView>
 	);
 }

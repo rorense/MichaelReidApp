@@ -13,7 +13,6 @@ const ArtworkCard = ({ artwork }: { artwork: any }) => {
 
 	// Ensure images is a valid URL
 	const imageUrl = Array.isArray(images) ? images[0] : images; // Get first image if it's an array
-	console.log(imageUrl);
 	return (
 		<TouchableOpacity
 			className="w-11/12 mb-5 self-center"

@@ -1,6 +1,5 @@
 import { View, Text, SafeAreaView, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
-import Header from "../components/Header";
 import FormField from "../components/FormField";
 import CustomButton from "../components/CustomButton";
 import { router } from "expo-router";
@@ -9,6 +8,7 @@ import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
 import { createArtwork } from "@/lib/appwrite";
 import { useGlobalContext } from "@/context/GlobalProvider";
+import AddArtWorkHeader from "../components/AddArtWorkHeader";
 
 const AddArt = () => {
 	const [step, setStep] = useState(1);
@@ -20,7 +20,7 @@ const AddArt = () => {
 		price: string;
 		edition: string;
 		dimensions: string;
-		images: { name: string; MimeType: string; fileSize: number; uri: string } | null;
+		images: { name: string; mimeType: string; fileSize: number; uri: string } | null;
 	}>({
 		title: "",
 		year: "",
@@ -31,6 +31,12 @@ const AddArt = () => {
 	});
 
 	const openPicker = async () => {
+		const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+		if (status !== "granted") {
+			Alert.alert("Permission required", "Please grant permission to access the photo library.");
+			return;
+		}
+
 		const result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ["images"],
 			aspect: [4, 3],
@@ -41,7 +47,7 @@ const AddArt = () => {
 			const selectedImage = result.assets[0];
 			const file = {
 				name: selectedImage.fileName || "image.jpg",
-				MimeType: selectedImage.type || "image/jpeg",
+				mimeType: selectedImage.type || "image/jpeg",
 				fileSize: selectedImage.fileSize || 0,
 				uri: selectedImage.uri,
 			};
@@ -59,9 +65,9 @@ const AddArt = () => {
 	};
 
 	const submit = async () => {
-		if (!form.title || !form.year || !form.price || !form.dimensions || !form.images) {
-			return Alert.alert("Please fill all fields");
-		}
+		// if (!form.title || form.year || form.price || form.edition || !form.dimensions || !form.images) {
+		// 	return Alert.alert("Error", "Please fill all fields with valid values.");
+		// }
 		setUploading(true);
 
 		try {
@@ -73,7 +79,8 @@ const AddArt = () => {
 			Alert.alert("Success", "Artwork added successfully");
 			router.push("/home");
 		} catch (error) {
-			Alert.alert("Error", (error as Error).message);
+			console.error("Error creating artwork:", error);
+			Alert.alert("Error", "Failed to add artwork. Please try again.");
 		} finally {
 			setForm({
 				title: "",
@@ -83,18 +90,15 @@ const AddArt = () => {
 				dimensions: "",
 				images: null,
 			});
-
 			setUploading(false);
 		}
 	};
 
 	return (
 		<>
-			<Header />
+			<AddArtWorkHeader />
 			<SafeAreaView className="bg-background h-full">
-				<View className="w-full justify-center items-center min-h-[85h] flex">
-					<Text className="text-center font-DMSans text-4xl top-10">Add Art</Text>
-
+				<View className="w-full justify-center items-center min-h-[65vh] flex">
 					{/* Title */}
 					{step === 1 && (
 						<View className="justify-center min-h-[65vh] text-center">
@@ -107,12 +111,7 @@ const AddArt = () => {
 							/>
 							<View>
 								<CustomButton
-									title="Cancel"
-									handlePress={() => router.replace("/home")}
-									isLoading={false}
-								/>
-								<CustomButton
-									title="Create"
+									title="Next"
 									handlePress={nextStep}
 									isLoading={false}
 									color="brown"
@@ -204,7 +203,7 @@ const AddArt = () => {
 								placeholder="Edition"
 								otherStyles={"w-[85vw]"}
 								value={form.edition}
-								handleChangeText={(e) => setForm({ ...form, edition: e })}
+								handleChangeText={(e: any) => setForm({ ...form, edition: e })}
 							/>
 							<View>
 								<CustomButton
@@ -230,7 +229,7 @@ const AddArt = () => {
 									<Image
 										source={{ uri: form.images.uri }}
 										resizeMode="cover"
-										className="w-full h-64 rounded-2xl"
+										className="w-full h-64 rounded-xl"
 									/>
 								) : (
 									<View className="w-full h-64 bg-gray-200 rounded-2xl justify-center items-center">

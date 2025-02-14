@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Client, Account, ID, Databases, Query, Storage } from "react-native-appwrite";
 // Init your React Native SDK
 const client = new Client();
@@ -91,38 +90,46 @@ export const clearSessionOnStart = async () => {
 	}
 };
 
-export const getFilePreview = async (fileId) => {
+export const getFilePreviewYes = async (fileId) => {
 	let fileUrl;
 
 	try {
+		console.log("File ID:", fileId);
+		console.log("Storage ID:", appwriteConfig.storageId);
+
 		fileUrl = storage.getFilePreview(appwriteConfig.storageId, fileId, 2000, 2000, "top", 100);
+		console.log("File URL:", fileUrl);
+
 		if (!fileUrl) throw new Error("Failed to get file preview");
 
 		return fileUrl;
 	} catch (error) {
+		console.error("Error in getFilePreviewYes:", error);
 		throw new Error(error);
 	}
 };
 
-// Uploading file to bucket storage
 export const uploadFile = async (file) => {
 	if (!file) return;
-	const asset = { name: file.name, type: file.mimeType, size: file.fileSize, uri: file.uri };
-
+	console.log("File:", file);
+	const asset = { name: file.name, size: file.fileSize, type: file.mimeType, uri: file.uri };
+	console.log(asset);
+	console.log("Storage ID:", appwriteConfig.storageId);
 	try {
 		const uploadedFile = await storage.createFile(appwriteConfig.storageId, ID.unique(), asset);
-		const fileUrl = await getFilePreview(uploadedFile.$id);
+		console.log("Uploaded File:", uploadedFile);
 
+		const fileUrl = await getFilePreviewYes(uploadedFile.$id);
 		return fileUrl;
 	} catch (error) {
+		console.error("Error in upload File:", error);
 		throw new Error(error.message || "Error Uploading File");
 	}
 };
 
-// Creating and Pushing new Artwork into the database
 export const createArtwork = async (form) => {
 	try {
-		const [image] = await Promise.all([uploadFile(form.images)]);
+		const image = await uploadFile(form.images);
 		const newArtwork = await databases.createDocument(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, ID.unique(), {
 			title: form.title,
 			year: form.year,
@@ -130,10 +137,12 @@ export const createArtwork = async (form) => {
 			edition: form.edition,
 			dimensions: form.dimensions,
 			images: image,
+			users: form.userId,
 		});
-
+		console.log("New Artwork:", newArtwork);
 		return newArtwork;
 	} catch (error) {
+		console.error("Error in createArtwork:", error);
 		throw new Error("Failed Creating Artwork Error", error);
 	}
 };

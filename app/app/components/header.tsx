@@ -30,12 +30,12 @@ const Header = () => {
 					</TouchableOpacity>
 				</View>
 
-				<View className="w-1/6 flex flex-row gap-2">
+				<View className="w-1/6 flex flex-row gap-4">
 					{/* Search Icon */}
 					<TouchableOpacity>
 						<IconFeather
 							name="search"
-							size={24}
+							size={22}
 						/>
 					</TouchableOpacity>
 
@@ -44,7 +44,8 @@ const Header = () => {
 						<Link href="/addArt">
 							<IconIon
 								name="add-circle-sharp"
-								size={24}></IconIon>
+								size={24}
+								color={"#7D1325"}></IconIon>
 						</Link>
 					</TouchableOpacity>
 				</View>
