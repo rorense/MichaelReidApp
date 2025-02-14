@@ -111,10 +111,8 @@ export const getFilePreviewYes = async (fileId) => {
 
 export const uploadFile = async (file) => {
 	if (!file) return;
-	console.log("File:", file);
 	const asset = { name: file.name, size: file.fileSize, type: file.mimeType, uri: file.uri };
-	console.log(asset);
-	console.log("Storage ID:", appwriteConfig.storageId);
+
 	try {
 		const uploadedFile = await storage.createFile(appwriteConfig.storageId, ID.unique(), asset);
 		console.log("Uploaded File:", uploadedFile);

@@ -16,16 +16,16 @@ const AddArt = () => {
 	const [uploading, setUploading] = useState(false);
 	const [form, setForm] = useState<{
 		title: string;
-		year: string;
-		price: string;
-		edition: string;
+		year: number | null; // Change to number or null
+		price: number | null; // Change to number or null
+		edition: number | null; // Change to number or null
 		dimensions: string;
 		images: { name: string; mimeType: string; fileSize: number; uri: string } | null;
 	}>({
 		title: "",
-		year: "",
-		price: "",
-		edition: "",
+		year: null, // Initialize as null
+		price: null, // Initialize as null
+		edition: null, // Initialize as null
 		dimensions: "",
 		images: null,
 	});
@@ -38,21 +38,67 @@ const AddArt = () => {
 		}
 
 		const result = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ["images"],
+			mediaTypes: ImagePicker.MediaTypeOptions.Images, // Use "Images" to ensure only images are selected
 			aspect: [4, 3],
 			quality: 1,
 		});
 
 		if (!result.canceled) {
 			const selectedImage = result.assets[0];
+
+			// Determine the correct MIME type based on the file extension or URI
+			const getMimeType = (uri) => {
+				const extension = uri.split(".").pop().toLowerCase();
+				switch (extension) {
+					case "jpg":
+					case "jpeg":
+						return "image/jpeg";
+					case "png":
+						return "image/png";
+					case "gif":
+						return "image/gif";
+					case "webp":
+						return "image/webp";
+					default:
+						return "image/jpeg"; // Fallback to JPEG if the type is unknown
+				}
+			};
+
 			const file = {
-				name: selectedImage.fileName || "image.jpg",
-				mimeType: selectedImage.type || "image/jpeg",
+				name: selectedImage.fileName || `image_${Date.now()}.jpg`, // Fallback name with timestamp
+				mimeType: getMimeType(selectedImage.uri), // Use the function to determine MIME type
 				fileSize: selectedImage.fileSize || 0,
 				uri: selectedImage.uri,
 			};
 
 			setForm({ ...form, images: file });
+		}
+	};
+
+	const handleYearChange = (e: string) => {
+		const year = parseInt(e, 10);
+		if (!isNaN(year)) {
+			setForm({ ...form, year });
+		} else {
+			setForm({ ...form, year: null });
+		}
+	};
+
+	const handlePriceChange = (e: string) => {
+		const price = parseInt(e, 10);
+		if (!isNaN(price)) {
+			setForm({ ...form, price });
+		} else {
+			setForm({ ...form, price: null });
+		}
+	};
+
+	const handleEditionChange = (e: string) => {
+		const edition = parseInt(e, 10);
+		if (!isNaN(edition)) {
+			setForm({ ...form, edition });
+		} else {
+			setForm({ ...form, edition: null });
 		}
 	};
 
@@ -65,9 +111,10 @@ const AddArt = () => {
 	};
 
 	const submit = async () => {
-		// if (!form.title || form.year || form.price || form.edition || !form.dimensions || !form.images) {
-		// 	return Alert.alert("Error", "Please fill all fields with valid values.");
-		// }
+		if (!form.title || form.year === null || form.price === null || form.edition === null || !form.dimensions || !form.images) {
+			return Alert.alert("Error", "Please fill all fields with valid values.");
+		}
+
 		setUploading(true);
 
 		try {
@@ -84,9 +131,9 @@ const AddArt = () => {
 		} finally {
 			setForm({
 				title: "",
-				year: "",
-				price: "",
-				edition: "",
+				year: null,
+				price: null,
+				edition: null,
 				dimensions: "",
 				images: null,
 			});
@@ -121,14 +168,15 @@ const AddArt = () => {
 					)}
 
 					{/* Year */}
+					{/* Year */}
 					{step === 2 && (
 						<View className="justify-center min-h-[65vh] text-center">
 							<Text className="mt-10 text-center font-DMSans">Enter year of work</Text>
 							<FormField
 								placeholder="Year of Work"
 								otherStyles={"w-[85vw]"}
-								value={form.year}
-								handleChangeText={(e: any) => setForm({ ...form, year: e })}
+								value={form.year?.toString() || ""}
+								handleChangeText={handleYearChange}
 							/>
 							<View>
 								<CustomButton
@@ -177,8 +225,8 @@ const AddArt = () => {
 							<FormField
 								placeholder="Enter Price"
 								otherStyles={"w-[85vw]"}
-								value={form.price}
-								handleChangeText={(e: any) => setForm({ ...form, price: e })}
+								value={form.price?.toString() || ""}
+								handleChangeText={handlePriceChange}
 							/>
 							<View>
 								<CustomButton
@@ -202,8 +250,8 @@ const AddArt = () => {
 							<FormField
 								placeholder="Edition"
 								otherStyles={"w-[85vw]"}
-								value={form.edition}
-								handleChangeText={(e: any) => setForm({ ...form, edition: e })}
+								value={form.edition?.toString() || ""}
+								handleChangeText={handleEditionChange}
 							/>
 							<View>
 								<CustomButton
