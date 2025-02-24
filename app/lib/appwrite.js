@@ -147,7 +147,15 @@ export const createArtwork = async (form) => {
 
 export const getAllArtworks = async () => {
 	try {
-		const artworks = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId);
+		const artworks = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, [Query.orderAsc("title")]);
+		return artworks.documents;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+export const getAllArtworksByUser = async (userId) => {
+	try {
+		const artworks = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, [Query.equal("users", userId)]);
 		return artworks.documents;
 	} catch (error) {
 		throw new Error(error);

@@ -1,12 +1,23 @@
 import Header from "../components/Header";
 import useAppwrite from "../../lib/useAppwrite";
-import { createDummyData, getAllArtworks } from "@/lib/appwrite";
+import { getAllArtworks, getAllArtworksByUser, getCurrentUser } from "@/lib/appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Alert, FlatList, Text, TouchableOpacity } from "react-native";
+import { FlatList, RefreshControl, Text } from "react-native";
 import ArtworkCard from "../components/ArtworkCard";
+import { useEffect, useState } from "react";
+import { useGlobalContext } from "@/context/GlobalProvider";
+import React from "react";
 
 const Home = () => {
-	const { data: artworks, refetch } = useAppwrite(getAllArtworks);
+	const { user } = useGlobalContext();
+	const { data: artworks, refetch } = useAppwrite(getAllArtworksByUser, [user.$id]);
+	const [refreshing, setRefreshing] = useState(false);
+
+	const onRefresh = async () => {
+		setRefreshing(true);
+		await refetch();
+		setRefreshing(false);
+	};
 
 	return (
 		<>
@@ -18,6 +29,12 @@ const Home = () => {
 						keyExtractor={(item) => item.$id}
 						renderItem={({ item }) => <ArtworkCard artwork={item} />}
 						contentContainerStyle={{ paddingBottom: 20 }}
+						refreshControl={
+							<RefreshControl
+								refreshing={refreshing}
+								onRefresh={onRefresh}
+							/>
+						}
 					/>
 				) : (
 					<Text>Loading...</Text>

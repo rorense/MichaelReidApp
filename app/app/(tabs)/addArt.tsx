@@ -51,6 +51,7 @@ const AddArt = () => {
 				const extension = uri.split(".").pop().toLowerCase();
 				switch (extension) {
 					case "jpg":
+						return "image/jpg";
 					case "jpeg":
 						return "image/jpeg";
 					case "png":
