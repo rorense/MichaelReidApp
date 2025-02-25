@@ -72,8 +72,10 @@ const OnboardingScreen = () => {
 					width: 120,
 					height: 120,
 					transform: [{ rotate: rotateInterpolation }], // Apply rotation
+					marginTop: 20, // Adjust margin to ensure the image is not cut off
 				}}
-				className="mt-10 ml-10"
+				resizeMode="contain" // Ensure the whole image is used
+				className="ml-10"
 			/>
 
 			<View className="flex-1 px-5 mt-8 w-full">

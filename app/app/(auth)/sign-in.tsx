@@ -18,7 +18,7 @@ const SignInPage = () => {
 
 	const submit = async () => {
 		if (form.email === "" || form.password === "") {
-			Alert.alert("Error", "Plase fill in all the fields");
+			Alert.alert("Error", "Please fill in all the fields");
 		}
 
 		setIsSubmitting(true);
@@ -50,7 +50,6 @@ const SignInPage = () => {
 						handleChangeText={(e: any) => setForm({ ...form, email: e })}
 						otherStyles="mt-7"
 						placeholder="Enter your email....."
-						// keyboardType="email-address"
 					/>
 					<FormField
 						title="Password"

@@ -1,15 +1,18 @@
 import Header from "../components/Header";
 import useAppwrite from "../../lib/useAppwrite";
-import { getAllArtworks, getAllArtworksByUser, getCurrentUser } from "@/lib/appwrite";
+import { getAllArtworksByUser } from "@/lib/appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList, RefreshControl, Text } from "react-native";
+import { FlatList, RefreshControl, Text, TouchableOpacity, View } from "react-native";
 import ArtworkCard from "../components/ArtworkCard";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Link } from "expo-router";
 
 const Home = () => {
 	const { user } = useGlobalContext();
+	const navigation = useNavigation();
 	const { data: artworks, refetch } = useAppwrite(getAllArtworksByUser, [user.$id]);
 	const [refreshing, setRefreshing] = useState(false);
 
@@ -19,11 +22,15 @@ const Home = () => {
 		setRefreshing(false);
 	};
 
+	useEffect(() => {
+		onRefresh();
+	}, []);
+
 	return (
 		<>
 			<Header />
 			<SafeAreaView className="bg-background flex-1">
-				{artworks ? (
+				{artworks && artworks.length > 0 ? (
 					<FlatList
 						data={artworks}
 						keyExtractor={(item) => item.$id}
@@ -37,7 +44,14 @@ const Home = () => {
 						}
 					/>
 				) : (
-					<Text>Loading...</Text>
+					<View className="mt-10">
+						<Text className="text-xl text-center font-black font-DMSans">You don't have any artworks!</Text>
+						<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-5">
+							<Link href={"/addArt"}>
+								<Text className="text-center font-DMSans text-white text-2xl">Add Artworks</Text>
+							</Link>
+						</TouchableOpacity>
+					</View>
 				)}
 			</SafeAreaView>
 		</>

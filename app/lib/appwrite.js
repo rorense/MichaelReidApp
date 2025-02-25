@@ -161,3 +161,13 @@ export const getAllArtworksByUser = async (userId) => {
 		throw new Error(error);
 	}
 };
+
+export const deleteArtwork = async (artworkId) => {
+	try {
+		const deleteDocument = await databases.deleteDocument(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, artworkId);
+
+		return deleteDocument;
+	} catch (error) {
+		throw new Error(error);
+	}
+};

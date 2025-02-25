@@ -178,6 +178,7 @@ const AddArt = () => {
 								otherStyles={"w-[85vw]"}
 								value={form.year?.toString() || ""}
 								handleChangeText={handleYearChange}
+								fieldType="number"
 							/>
 							<View>
 								<CustomButton
@@ -228,6 +229,7 @@ const AddArt = () => {
 								otherStyles={"w-[85vw]"}
 								value={form.price?.toString() || ""}
 								handleChangeText={handlePriceChange}
+								fieldType="number"
 							/>
 							<View>
 								<CustomButton

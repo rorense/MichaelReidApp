@@ -21,23 +21,23 @@ const DrawerContent = (props: any) => {
 	return (
 		<DrawerContentScrollView {...props}>
 			<View>
-				<Text className="text-center font-DMSans mt-4 mb-5 text-4xl">Michael Reid</Text>
+				<Text className="text-center font-DMSans mt-4 mb-5 text-4xl">MICHAEL REID</Text>
 				<Link href="/home">
-					<Text className="text-3xl font-DMSans">Home</Text>
+					<Text className="text-3xl font-DMSans">HOME</Text>
 					<DrawerItem
 						label="home"
 						onPress={() => props.navigation.navigate("/home")}
 					/>
 				</Link>
 				<Link href="/addArt">
-					<Text className="text-3xl font-DMSans mt-5">Add Art</Text>
+					<Text className="text-3xl font-DMSans mt-5">ADD ART</Text>
 					<DrawerItem
 						label="addArt"
 						onPress={() => props.navigation.navigate("/addArt")}
 					/>
 				</Link>
 				<TouchableOpacity onPress={handleSignOut}>
-					<Text className="text-3xl font-DMSans bottom-0">Sign Out</Text>
+					<Text className="text-3xl font-DMSans bottom-0">SIGN OUT</Text>
 				</TouchableOpacity>
 			</View>
 		</DrawerContentScrollView>

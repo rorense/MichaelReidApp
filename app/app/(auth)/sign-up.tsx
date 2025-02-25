@@ -19,7 +19,7 @@ const SignUpPage = () => {
 
 	const submit = async () => {
 		if (form.username === "" || form.password === "" || form.email === "") {
-			Alert.alert("Error", "Plase fill in all the fields");
+			Alert.alert("Error", "Please fill in all the fields");
 		}
 
 		setIsSubmitting(true);
@@ -56,7 +56,6 @@ const SignUpPage = () => {
 						handleChangeText={(e: any) => setForm({ ...form, email: e })}
 						otherStyles="mt-7"
 						placeholder="Enter email....."
-						// keyboardType="email-address"
 					/>
 					<FormField
 						title="Password"
