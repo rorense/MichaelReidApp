@@ -11,8 +11,6 @@ const ArtworkCard = ({ artwork }: { artwork: any }) => {
 	const navigation = useNavigation<ArtworkCardNavigationProp>();
 	const { title, year, price, edition, dimensions, images, $id } = artwork;
 
-	console.log(artwork);
-
 	// Ensure images is a valid URL
 	const imageUrl = Array.isArray(images) ? images[0] : images; // Get first image if it's an array
 	return (

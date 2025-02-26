@@ -7,13 +7,18 @@ import ArtworkCard from "../components/ArtworkCard";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { Link } from "expo-router";
+import { RootStackParamList } from "../../types"; // Adjust the path as necessary
+
+type HomeRouteProp = RouteProp<RootStackParamList, "home">;
 
 const Home = () => {
 	const { user } = useGlobalContext();
 	const navigation = useNavigation();
-	const { data: artworks, refetch } = useAppwrite(getAllArtworksByUser, [user.$id]);
+	const route = useRoute<HomeRouteProp>();
+	const { artworkCollectionId } = route.params || {};
+	const { data: artworks, refetch } = useAppwrite(getAllArtworksByUser, [user.$id, artworkCollectionId]);
 	const [refreshing, setRefreshing] = useState(false);
 
 	const onRefresh = async () => {
@@ -24,7 +29,7 @@ const Home = () => {
 
 	useEffect(() => {
 		onRefresh();
-	}, []);
+	}, [artworkCollectionId]);
 
 	return (
 		<>
@@ -46,10 +51,10 @@ const Home = () => {
 				) : (
 					<View className="mt-10">
 						<Text className="text-xl text-center font-black font-DMSans">You don't have any artworks!</Text>
-						<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-5">
-							<Link href={"/addArt"}>
-								<Text className="text-center font-DMSans text-white text-2xl">Add Artworks</Text>
-							</Link>
+						<TouchableOpacity
+							className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-5"
+							onPress={() => navigation.navigate("addArt", { artworkCollectionId })}>
+							<Text className="text-center font-DMSans text-white text-2xl">Add Artworks</Text>
 						</TouchableOpacity>
 					</View>
 				)}

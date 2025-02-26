@@ -44,8 +44,10 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 				</View>
 
 				<View>
-					<TouchableOpacity onPress={deleteArt}>
-						<Text className="text-red font-DMSans text-center">Delete Artwork</Text>
+					<TouchableOpacity
+						onPress={deleteArt}
+						className="mt-8">
+						<Text className="text-red-950 font-DMSans text-center font-bold">Delete Artwork</Text>
 					</TouchableOpacity>
 				</View>
 			</SafeAreaView>

@@ -11,6 +11,7 @@ export const appwriteConfig = {
 	userCollectionId: "67a03c0200314a0d67be",
 	galleryCollectionId: "67a03c45000bebd6e3f0",
 	storageId: "67a03dcc00330daaaeb5",
+	artworkCollection: "67bd3347002afc98bede",
 };
 
 // Initialising Appwrite SDKs
@@ -136,8 +137,8 @@ export const createArtwork = async (form) => {
 			dimensions: form.dimensions,
 			images: image,
 			users: form.userId,
+			artworkCollection: form.artworkCollection,
 		});
-		console.log("New Artwork:", newArtwork);
 		return newArtwork;
 	} catch (error) {
 		console.error("Error in createArtwork:", error);
@@ -153,9 +154,11 @@ export const getAllArtworks = async () => {
 		throw new Error(error);
 	}
 };
-export const getAllArtworksByUser = async (userId) => {
+export const getAllArtworksByUser = async (userId, artworkCollectionId) => {
 	try {
-		const artworks = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, [Query.equal("users", userId)]);
+		const artworks = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, [
+			Query.equal("artworkCollection", artworkCollectionId),
+		]);
 		return artworks.documents;
 	} catch (error) {
 		throw new Error(error);
@@ -167,6 +170,28 @@ export const deleteArtwork = async (artworkId) => {
 		const deleteDocument = await databases.deleteDocument(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, artworkId);
 
 		return deleteDocument;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+export const createArtworkCollection = async (form) => {
+	try {
+		const newArtworkCollection = await databases.createDocument(appwriteConfig.databaseId, appwriteConfig.artworkCollection, ID.unique(), {
+			title: form.title,
+			users: form.userId,
+		});
+
+		return newArtworkCollection;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+export const getArtworkCollectionByUser = async (userId) => {
+	try {
+		const collection = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.artworkCollection, [Query.equal("users", userId)]);
+		return collection.documents;
 	} catch (error) {
 		throw new Error(error);
 	}

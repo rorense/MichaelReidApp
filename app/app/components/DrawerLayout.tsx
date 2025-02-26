@@ -20,25 +20,49 @@ const DrawerContent = (props: any) => {
 
 	return (
 		<DrawerContentScrollView {...props}>
-			<View>
-				<Text className="text-center font-DMSans mt-4 mb-5 text-4xl">MICHAEL REID</Text>
-				<Link href="/home">
-					<Text className="text-3xl font-DMSans">HOME</Text>
-					<DrawerItem
-						label="home"
-						onPress={() => props.navigation.navigate("/home")}
-					/>
-				</Link>
-				<Link href="/addArt">
-					<Text className="text-3xl font-DMSans mt-5">ADD ART</Text>
-					<DrawerItem
-						label="addArt"
-						onPress={() => props.navigation.navigate("/addArt")}
-					/>
-				</Link>
-				<TouchableOpacity onPress={handleSignOut}>
-					<Text className="text-3xl font-DMSans bottom-0">SIGN OUT</Text>
-				</TouchableOpacity>
+			<View className="flex-1">
+				<View>
+					<Text className="text-center font-DMSans mt-4 mb-5 text-4xl">MICHAEL REID</Text>
+					<Link href="/home">
+						<Text className="text-3xl font-DMSans">HOME</Text>
+						<DrawerItem
+							label="home"
+							onPress={() => props.navigation.navigate("/home")}
+						/>
+					</Link>
+					<Link href="/addArt">
+						<Text className="text-3xl font-DMSans mt-5">ADD ART</Text>
+						<DrawerItem
+							label="addArt"
+							onPress={() => props.navigation.navigate("/addArt")}
+						/>
+					</Link>
+					<Link href="/addArtworkCollection">
+						<Text className="text-3xl font-DMSans mt-5">ADD COLLECTION</Text>
+						<DrawerItem
+							label="addArt"
+							onPress={() => props.navigation.navigate("/addArtworkCollection")}
+						/>
+					</Link>
+					<Link href="/collection">
+						<Text className="text-3xl font-DMSans mt-5">COLLECTION</Text>
+						<DrawerItem
+							label="addArt"
+							onPress={() => props.navigation.navigate("/collection")}
+						/>
+					</Link>
+					<TouchableOpacity onPress={handleSignOut}>
+						<Text className="text-3xl font-DMSans bottom-0">SIGN OUT</Text>
+					</TouchableOpacity>
+				</View>
+				<View className="mt-[500px] mb-4">
+					<Link href="https://michaelreid.com.au/">
+						<Text className="text-center font-DMSans text-xl text-blue-500">Visit Website</Text>
+					</Link>
+					<Link href="https://michaelreid.com.au/privacy-policy-app/">
+						<Text className="text-center font-DMSans text-xl text-blue-500 mt-2">Privacy Policy</Text>
+					</Link>
+				</View>
 			</View>
 		</DrawerContentScrollView>
 	);
@@ -49,7 +73,8 @@ export default function DrawerLayout() {
 		<GestureHandlerRootView>
 			<Drawer
 				drawerContent={(props) => <DrawerContent {...props} />}
-				screenOptions={{ headerShown: false }}></Drawer>
+				screenOptions={{ headerShown: false }}
+			/>
 		</GestureHandlerRootView>
 	);
 }

@@ -2,15 +2,21 @@ import { View, Text, SafeAreaView, TouchableOpacity, Image } from "react-native"
 import React, { useState } from "react";
 import FormField from "../components/FormField";
 import CustomButton from "../components/CustomButton";
-import { router } from "expo-router";
 import Icon from "@expo/vector-icons/Feather";
 import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
 import { createArtwork } from "@/lib/appwrite";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import AddArtWorkHeader from "../components/AddArtWorkHeader";
+import { RouteProp, useRoute } from "@react-navigation/native";
+import { RootStackParamList } from "../../types"; // Adjust the path as necessary
+import { router } from "expo-router";
+
+type AddArtRouteProp = RouteProp<RootStackParamList, "addArt">;
 
 const AddArt = () => {
+	const route = useRoute<AddArtRouteProp>();
+	const { artworkCollectionId } = route.params || {};
 	const [step, setStep] = useState(1);
 	const { user } = useGlobalContext();
 	const [uploading, setUploading] = useState(false);
@@ -29,6 +35,8 @@ const AddArt = () => {
 		dimensions: "",
 		images: null,
 	});
+
+	console.log("Artwork Collection ID", artworkCollectionId);
 
 	const openPicker = async () => {
 		const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -122,6 +130,7 @@ const AddArt = () => {
 			await createArtwork({
 				...form,
 				userId: user.$id,
+				artworkCollection: artworkCollectionId,
 			});
 
 			Alert.alert("Success", "Artwork added successfully");
@@ -144,7 +153,7 @@ const AddArt = () => {
 
 	return (
 		<>
-			<AddArtWorkHeader />
+			<AddArtWorkHeader title="Add Artwork" />
 			<SafeAreaView className="bg-background h-full">
 				<View className="w-full justify-center items-center min-h-[65vh] flex">
 					{/* Title */}
@@ -255,6 +264,7 @@ const AddArt = () => {
 								otherStyles={"w-[85vw]"}
 								value={form.edition?.toString() || ""}
 								handleChangeText={handleEditionChange}
+								keyboardType="number"
 							/>
 							<View>
 								<CustomButton
