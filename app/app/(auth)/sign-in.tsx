@@ -30,7 +30,7 @@ const SignInPage = () => {
 			setIsLogged(true);
 
 			Alert.alert("Success", "Logged in successfully");
-			router.replace("/home");
+			router.replace("/collection");
 		} catch (error) {
 			console.log(error);
 			Alert.alert("Error", "Something went wrong");

@@ -14,7 +14,7 @@ const CollectionCard = ({ collection }: { collection: any }) => {
 	return (
 		<TouchableOpacity
 			className="mt-4 w-[85vw] flex justify-center items-center h-[200px] border-solid border-2 self-center"
-			onPress={() => navigation.navigate("home", { artworkCollectionId: $id })}>
+			onPress={() => navigation.navigate("home", { artworkCollectionId: $id, title: title })}>
 			<Text className="text-center font-DMSans text-2xl">{title}</Text>
 		</TouchableOpacity>
 	);

@@ -16,7 +16,7 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 		try {
 			await deleteArtwork($id);
 			Alert.alert("Success", "Artwork deleted successfully");
-			router.push("/home"); // Navigate back to the home page
+			router.push("/collection"); // Navigate back to the home page
 		} catch (error) {
 			Alert.alert("Error", "Failed to delete artwork. Please try again.");
 		}
@@ -46,8 +46,8 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 				<View>
 					<TouchableOpacity
 						onPress={deleteArt}
-						className="mt-8">
-						<Text className="text-red-950 font-DMSans text-center font-bold">Delete Artwork</Text>
+						className="mt-5">
+						<Text className="text-red- font-DMSans text-center">Delete Artwork</Text>
 					</TouchableOpacity>
 				</View>
 			</SafeAreaView>

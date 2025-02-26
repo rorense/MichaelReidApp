@@ -24,7 +24,7 @@ const addArtworkCollection = () => {
 				...form,
 				userId: user.$id,
 			});
-			Alert.alert("Success", "Artwork added successfully");
+			Alert.alert("Success", "Collection added successfully");
 			router.push("/collection");
 		} catch (error) {
 			console.error("Error creating Collection:", error);
@@ -43,9 +43,9 @@ const addArtworkCollection = () => {
 			<SafeAreaView className="bg-background h-full ">
 				<View className="w-full justify-center items-center min-h-[65vh] flex">
 					<View className="justify-center min-h-[65vh] text-center">
-						<Text className="mt-10 text-center font-DMSans">Enter title of work</Text>
+						<Text className="mt-10 text-center font-DMSans">Enter title of Collection</Text>
 						<FormField
-							placeholder="Title of Work"
+							placeholder="Title of Collection"
 							otherStyles={"w-[85vw]"}
 							value={form.title}
 							handleChangeText={(e: any) => setForm({ ...form, title: e })}
@@ -53,7 +53,7 @@ const addArtworkCollection = () => {
 						<View>
 							<CustomButton
 								title="Back"
-								handlePress={() => router.push("/home")}
+								handlePress={() => router.push("/collection")}
 								isLoading={false}
 							/>
 							<CustomButton

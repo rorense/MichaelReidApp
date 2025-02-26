@@ -154,7 +154,7 @@ export const getAllArtworks = async () => {
 		throw new Error(error);
 	}
 };
-export const getAllArtworksByUser = async (userId, artworkCollectionId) => {
+export const getAllArtworksByUser = async (artworkCollectionId) => {
 	try {
 		const artworks = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, [
 			Query.equal("artworkCollection", artworkCollectionId),
@@ -192,6 +192,15 @@ export const getArtworkCollectionByUser = async (userId) => {
 	try {
 		const collection = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.artworkCollection, [Query.equal("users", userId)]);
 		return collection.documents;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+export const deleteArtworkCollection = async (collectionId) => {
+	try {
+		const deleteCollection = await databases.deleteDocument(appwriteConfig.databaseId, appwriteConfig.artworkCollection, collectionId);
+		return deleteCollection;
 	} catch (error) {
 		throw new Error(error);
 	}

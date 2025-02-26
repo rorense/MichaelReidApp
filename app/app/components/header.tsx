@@ -2,10 +2,13 @@ import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
 import IconFeather from "react-native-vector-icons/Feather";
 import IconIon from "react-native-vector-icons/Ionicons";
-import { Link } from "expo-router";
-import { useNavigation } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 
-const Header = () => {
+interface HeaderProps {
+	title?: string;
+}
+
+const Header: React.FC<HeaderProps> = ({ title = "MICHAEL REID" }) => {
 	const navigation = useNavigation();
 
 	return (
@@ -24,8 +27,8 @@ const Header = () => {
 				<View className="w-1/2">
 					{/* Web Title */}
 					<TouchableOpacity>
-						<Link href="/home">
-							<Text className="text-center text-2xl">MICHAEL REID</Text>
+						<Link href="/collection">
+							<Text className="text-center text-2xl">{title}</Text>
 						</Link>
 					</TouchableOpacity>
 				</View>
@@ -41,11 +44,12 @@ const Header = () => {
 
 					{/* Add Icon */}
 					<TouchableOpacity>
-						<Link href="/addArt">
+						<Link href="/addArtworkCollection">
 							<IconIon
 								name="add-circle-sharp"
 								size={24}
-								color={"#7D1325"}></IconIon>
+								color={"#7D1325"}
+							/>
 						</Link>
 					</TouchableOpacity>
 				</View>

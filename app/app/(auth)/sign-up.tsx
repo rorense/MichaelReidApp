@@ -29,7 +29,7 @@ const SignUpPage = () => {
 			setUser(result);
 			setIsLogged(true);
 
-			router.replace("/home");
+			router.replace("/collection");
 		} catch (error) {
 			console.log(error);
 			Alert.alert("Error", "Something went wrong");

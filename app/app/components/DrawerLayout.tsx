@@ -1,5 +1,5 @@
 import { signOut } from "@/lib/appwrite";
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { Link, router, useNavigation } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
@@ -23,36 +23,13 @@ const DrawerContent = (props: any) => {
 			<View className="flex-1">
 				<View>
 					<Text className="text-center font-DMSans mt-4 mb-5 text-4xl">MICHAEL REID</Text>
-					<Link href="/home">
-						<Text className="text-3xl font-DMSans">HOME</Text>
-						<DrawerItem
-							label="home"
-							onPress={() => props.navigation.navigate("/home")}
-						/>
-					</Link>
-					<Link href="/addArt">
-						<Text className="text-3xl font-DMSans mt-5">ADD ART</Text>
-						<DrawerItem
-							label="addArt"
-							onPress={() => props.navigation.navigate("/addArt")}
-						/>
-					</Link>
-					<Link href="/addArtworkCollection">
-						<Text className="text-3xl font-DMSans mt-5">ADD COLLECTION</Text>
-						<DrawerItem
-							label="addArt"
-							onPress={() => props.navigation.navigate("/addArtworkCollection")}
-						/>
-					</Link>
-					<Link href="/collection">
-						<Text className="text-3xl font-DMSans mt-5">COLLECTION</Text>
-						<DrawerItem
-							label="addArt"
-							onPress={() => props.navigation.navigate("/collection")}
-						/>
-					</Link>
+					<TouchableOpacity onPress={() => {}}>
+						<Link href="/collection">
+							<Text className="text-3xl font-DMSans mt-5">SEE COLLECTION</Text>
+						</Link>
+					</TouchableOpacity>
 					<TouchableOpacity onPress={handleSignOut}>
-						<Text className="text-3xl font-DMSans bottom-0">SIGN OUT</Text>
+						<Text className="text-3xl font-DMSans ">SIGN OUT</Text>
 					</TouchableOpacity>
 				</View>
 				<View className="mt-[500px] mb-4">
