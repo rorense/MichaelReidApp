@@ -1,8 +1,8 @@
-import { View, Text, SafeAreaView, FlatList, TouchableOpacity, RefreshControl, BackHandler } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, SafeAreaView, FlatList, TouchableOpacity, RefreshControl } from "react-native";
+import React, { useState } from "react";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import useAppwrite from "@/lib/useAppwrite";
-import { deleteArtworkCollection, getArtworkCollectionByUser } from "@/lib/appwrite";
+import { getArtworkCollectionByUser } from "@/lib/appwrite";
 import Header from "../components/Header";
 import { Link } from "expo-router";
 import CollectionCard from "../components/CollectionCard";
@@ -25,6 +25,21 @@ const Collection = () => {
 		}, [])
 	);
 
+	const renderItem = ({ item }) => {
+		if (item.type === "button") {
+			return (
+				<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-5">
+					<Link href={"/addArtworkCollection"}>
+						<Text className="text-center font-DMSans text-white text-2xl">Create Collection</Text>
+					</Link>
+				</TouchableOpacity>
+			);
+		}
+		return <CollectionCard collection={item} />;
+	};
+
+	const dataWithButton = collection ? [...collection, { type: "button" }] : [{ type: "button" }];
+
 	return (
 		<>
 			<Header />
@@ -32,9 +47,9 @@ const Collection = () => {
 				{collection && collection.length > 0 ? (
 					<View className="flex justify-center">
 						<FlatList
-							data={collection}
-							keyExtractor={(item) => item.$id}
-							renderItem={({ item }) => <CollectionCard collection={item} />}
+							data={dataWithButton}
+							keyExtractor={(item, index) => item.$id || index.toString()}
+							renderItem={renderItem}
 							contentContainerStyle={{ paddingBottom: 20 }}
 							refreshControl={
 								<RefreshControl
@@ -43,11 +58,6 @@ const Collection = () => {
 								/>
 							}
 						/>
-						<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-5">
-							<Link href={"/addArtworkCollection"}>
-								<Text className="text-center font-DMSans text-white text-2xl">Create Collection</Text>
-							</Link>
-						</TouchableOpacity>
 					</View>
 				) : (
 					<View className="mt-10">

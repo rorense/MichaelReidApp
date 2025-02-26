@@ -15,12 +15,12 @@ const ArtworkCard = ({ artwork }: { artwork: any }) => {
 	const imageUrl = Array.isArray(images) ? images[0] : images; // Get first image if it's an array
 	return (
 		<TouchableOpacity
-			className="w-11/12 mb-5 self-center"
+			className="w-[11/12] mb-5 self-center"
 			onPress={() => navigation.navigate("artworkpage", { imageUrl, title, dimensions, year, edition, price, $id })}>
 			{imageUrl ? (
 				<ImageBackground
 					source={{ uri: imageUrl }}
-					className="w-full h-96 justify-end top-10">
+					className="w-[80vw] h-96 justify-end top-10">
 					<View className="m-3 p-3 bg-[#7D1325]">
 						<Text className="text-white text-lg font-bold font-DMSans">{title}</Text>
 						<Text className="text-white font-DMSans">

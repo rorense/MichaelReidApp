@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import React from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
-import { Link, router } from "expo-router";
 import { RootStackParamList } from "../../types"; // Adjust the path as necessary
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -31,67 +30,85 @@ const Home = () => {
 	useFocusEffect(
 		React.useCallback(() => {
 			onRefresh();
-		}, [])
+		}, [artworkCollectionId])
 	);
 
 	const DeleteCollection = async () => {
 		try {
 			await deleteArtworkCollection(artworkCollectionId);
 			Alert.alert("Success", "Collection deleted successfully");
-			router.push("/collection");
+			navigation.navigate("collection");
 		} catch (error) {
 			throw new Error(error);
 		}
 	};
-	console.log(artworks);
+
+	const navigateToArtworkPage = (item) => {
+		navigation.navigate("artworkpage", { ...item });
+	};
+
+	const renderItem = ({ item }) => {
+		if (item.type === "button") {
+			return (
+				<View>
+					<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-12">
+						<Text
+							className="text-center font-DMSans text-white text-2xl"
+							onPress={() => navigation.navigate("addArt", { artworkCollectionId })}>
+							Add Artwork
+						</Text>
+					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={DeleteCollection}
+						className="mt-5">
+						<Text className="text-center font-DMSans text-black text-xl">Delete Collection</Text>
+					</TouchableOpacity>
+				</View>
+			);
+		}
+		return (
+			<TouchableOpacity onPress={() => navigateToArtworkPage(item)}>
+				<ArtworkCard artwork={item} />
+			</TouchableOpacity>
+		);
+	};
+
+	const dataWithButton = artworks ? [...artworks, { type: "button" }] : [{ type: "button" }];
+
+	const renderContent = () => {
+		if (isLoading) {
+			return (
+				<View className="flex-1 justify-center items-center">
+					<ActivityIndicator
+						size="large"
+						color="#0000ff"
+					/>
+				</View>
+			);
+		}
+
+		return (
+			<View>
+				<FlatList
+					data={dataWithButton}
+					keyExtractor={(item, index) => item.$id || index.toString()}
+					renderItem={renderItem}
+					contentContainerStyle={{ paddingBottom: 20 }}
+					refreshControl={
+						<RefreshControl
+							refreshing={refreshing}
+							onRefresh={onRefresh}
+						/>
+					}
+				/>
+			</View>
+		);
+	};
+
 	return (
 		<>
-			<Header title={title} />
-			<SafeAreaView className="bg-background flex-1">
-				{isLoading ? (
-					<View className="flex-1 justify-center items-center">
-						<ActivityIndicator
-							size="large"
-							color="#fffff"
-						/>
-					</View>
-				) : artworks && artworks.length > 0 ? (
-					<View>
-						<FlatList
-							data={artworks}
-							keyExtractor={(item) => item.$id}
-							renderItem={({ item }) => <ArtworkCard artwork={item} />}
-							contentContainerStyle={{ paddingBottom: 20 }}
-							refreshControl={
-								<RefreshControl
-									refreshing={refreshing}
-									onRefresh={onRefresh}
-								/>
-							}
-						/>
-						<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-5">
-							<Link href={"/addArt"}>
-								<Text className="text-center font-DMSans text-white text-2xl">Add Artwork</Text>
-							</Link>
-						</TouchableOpacity>
-						<TouchableOpacity onPress={DeleteCollection}>
-							<Text className="mt-5 text-center font-DMSans text-black text-xl">Delete Collection</Text>
-						</TouchableOpacity>
-					</View>
-				) : (
-					<View className="mt-10">
-						<Text className="text-xl text-center font-black font-DMSans">You don't have any artworks!</Text>
-						<TouchableOpacity
-							className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-5"
-							onPress={() => navigation.navigate("addArt", { artworkCollectionId })}>
-							<Text className="text-center font-DMSans text-white text-2xl">Add Artworks</Text>
-						</TouchableOpacity>
-						<TouchableOpacity onPress={DeleteCollection}>
-							<Text className="mt-5 text-center font-DMSans text-black text-xl">Delete Collection</Text>
-						</TouchableOpacity>
-					</View>
-				)}
-			</SafeAreaView>
+			<Header title={title || "MICHAEL REID"} />
+			<SafeAreaView className="bg-background flex-1">{renderContent()}</SafeAreaView>
 		</>
 	);
 };

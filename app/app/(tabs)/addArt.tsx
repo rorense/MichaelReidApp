@@ -11,6 +11,7 @@ import AddArtWorkHeader from "../components/AddArtWorkHeader";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../../types"; // Adjust the path as necessary
 import { router } from "expo-router";
+import * as ImageManipulator from "expo-image-manipulator";
 
 type AddArtRouteProp = RouteProp<RootStackParamList, "addArt">;
 
@@ -36,7 +37,7 @@ const AddArt = () => {
 		images: null,
 	});
 
-	console.log("Artwork Collection ID", artworkCollectionId);
+	// ...existing code...
 
 	const openPicker = async () => {
 		const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -53,6 +54,13 @@ const AddArt = () => {
 
 		if (!result.canceled) {
 			const selectedImage = result.assets[0];
+
+			// Fix the orientation of the image
+			const manipulatedImage = await ImageManipulator.manipulateAsync(
+				selectedImage.uri,
+				[{ rotate: 0 }], // This will fix the orientation
+				{ compress: 1, format: ImageManipulator.SaveFormat.JPEG }
+			);
 
 			// Determine the correct MIME type based on the file extension or URI
 			const getMimeType = (uri) => {
@@ -75,9 +83,9 @@ const AddArt = () => {
 
 			const file = {
 				name: selectedImage.fileName || `image_${Date.now()}.jpg`, // Fallback name with timestamp
-				mimeType: getMimeType(selectedImage.uri), // Use the function to determine MIME type
+				mimeType: getMimeType(manipulatedImage.uri), // Use the function to determine MIME type
 				fileSize: selectedImage.fileSize || 0,
-				uri: selectedImage.uri,
+				uri: manipulatedImage.uri,
 			};
 
 			setForm({ ...form, images: file });
@@ -147,6 +155,7 @@ const AddArt = () => {
 				dimensions: "",
 				images: null,
 			});
+			setStep(1);
 			setUploading(false);
 		}
 	};
