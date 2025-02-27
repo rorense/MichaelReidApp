@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Alert } from "react-native";
+import { View, Text, SafeAreaView, Alert, BackHandler } from "react-native";
 import React, { useState } from "react";
 import AddArtWorkHeader from "../components/AddArtWorkHeader";
 import FormField from "../components/FormField";
@@ -6,8 +6,9 @@ import CustomButton from "../components/CustomButton";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { createArtworkCollection } from "@/lib/appwrite";
 import { router } from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
 
-const addArtworkCollection = () => {
+const AddArtworkCollection = () => {
 	const { user } = useGlobalContext();
 	const [uploading, setUploading] = useState(false);
 	const [form, setForm] = useState<{
@@ -15,6 +16,19 @@ const addArtworkCollection = () => {
 	}>({
 		title: "",
 	});
+
+	useFocusEffect(
+		React.useCallback(() => {
+			const backAction = () => {
+				router.push("/collection");
+				return true;
+			};
+
+			const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+
+			return () => backHandler.remove();
+		}, [])
+	);
 
 	const submit = async () => {
 		setUploading(true);
@@ -70,4 +84,4 @@ const addArtworkCollection = () => {
 	);
 };
 
-export default addArtworkCollection;
+export default AddArtworkCollection;

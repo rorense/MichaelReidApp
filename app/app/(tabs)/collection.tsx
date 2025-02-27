@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, FlatList, TouchableOpacity, RefreshControl } from "react-native";
-import React, { useState } from "react";
+import { View, Text, SafeAreaView, FlatList, TouchableOpacity, RefreshControl, BackHandler, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import useAppwrite from "@/lib/useAppwrite";
 import { getArtworkCollectionByUser } from "@/lib/appwrite";
@@ -22,6 +22,26 @@ const Collection = () => {
 	useFocusEffect(
 		React.useCallback(() => {
 			onRefresh();
+		}, [])
+	);
+
+	useFocusEffect(
+		React.useCallback(() => {
+			const backAction = () => {
+				Alert.alert("Hold on!", "Are you sure you want to go back?", [
+					{
+						text: "Cancel",
+						onPress: () => null,
+						style: "cancel",
+					},
+					{ text: "YES", onPress: () => BackHandler.exitApp() },
+				]);
+				return true;
+			};
+
+			const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+
+			return () => backHandler.remove();
 		}, [])
 	);
 

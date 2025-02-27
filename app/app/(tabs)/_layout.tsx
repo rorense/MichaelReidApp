@@ -17,7 +17,10 @@ const TabsLayout = () => {
 					name="artworkpage"
 					component={ArtworkPage}
 				/>
-				<Stack.Screen name="collection" />
+				<Stack.Screen
+					name="collection"
+					component={Collection}
+				/>
 			</Stack.Navigator>
 		</DrawerLayout>
 	);

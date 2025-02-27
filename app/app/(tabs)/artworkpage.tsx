@@ -1,22 +1,36 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity, Alert } from "react-native";
+import { View, Text, SafeAreaView, Image, TouchableOpacity, Alert, BackHandler } from "react-native";
 import React from "react";
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../types"; // Adjust the path as necessary
 import { router, useLocalSearchParams } from "expo-router";
 import ArtWorkHeader from "../components/ArtWorkHeader";
 import { deleteArtwork } from "@/lib/appwrite";
+import { useFocusEffect } from "@react-navigation/native";
 
 type ArtworkPageRouteProp = RouteProp<RootStackParamList, "artworkpage">;
 
 const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
-	const { imageUrl, title, dimensions, year, edition, price, $id } = useLocalSearchParams();
+	const { imageUrl, title, dimensions, year, edition, price, $id, artworkCollectionId } = useLocalSearchParams();
 	const navigation = useNavigation();
+
+	useFocusEffect(
+		React.useCallback(() => {
+			const backAction = () => {
+				navigation.navigate("home", { artworkCollectionId });
+				return true;
+			};
+
+			const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+
+			return () => backHandler.remove();
+		}, [artworkCollectionId])
+	);
 
 	const deleteArt = async () => {
 		try {
 			await deleteArtwork($id);
 			Alert.alert("Success", "Artwork deleted successfully");
-			router.push("/collection"); // Navigate back to the home page
+			router.push("/home", { artworkCollectionId }); // Navigate back to the home page for that collection
 		} catch (error) {
 			Alert.alert("Error", "Failed to delete artwork. Please try again.");
 		}

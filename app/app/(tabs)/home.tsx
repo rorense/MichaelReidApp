@@ -1,7 +1,7 @@
 import useAppwrite from "../../lib/useAppwrite";
 import { deleteArtworkCollection, getAllArtworksByUser } from "@/lib/appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList, RefreshControl, Text, TouchableOpacity, View, ActivityIndicator, Alert } from "react-native";
+import { FlatList, RefreshControl, Text, TouchableOpacity, View, ActivityIndicator, Alert, BackHandler } from "react-native";
 import ArtworkCard from "../components/ArtworkCard";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context/GlobalProvider";
@@ -10,6 +10,7 @@ import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../types"; // Adjust the path as necessary
 import { useFocusEffect } from "@react-navigation/native";
 import Header from "../components/Header"; // Correct import path
+import EmptyState from "../components/EmptyState";
 
 type HomeRouteProp = RouteProp<RootStackParamList, "home">;
 
@@ -33,6 +34,19 @@ const Home = () => {
 		}, [artworkCollectionId])
 	);
 
+	useFocusEffect(
+		React.useCallback(() => {
+			const backAction = () => {
+				navigation.navigate("collection");
+				return true;
+			};
+
+			const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+
+			return () => backHandler.remove();
+		}, [])
+	);
+
 	const DeleteCollection = async () => {
 		try {
 			await deleteArtworkCollection(artworkCollectionId);
@@ -44,13 +58,14 @@ const Home = () => {
 	};
 
 	const navigateToArtworkPage = (item) => {
-		navigation.navigate("artworkpage", { ...item });
+		navigation.navigate("artworkpage", { ...item, artworkCollectionId });
 	};
 
 	const renderItem = ({ item }) => {
 		if (item.type === "button") {
 			return (
 				<View>
+					{artworks && artworks.length === 0 && <EmptyState />}
 					<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-12">
 						<Text
 							className="text-center font-DMSans text-white text-2xl"

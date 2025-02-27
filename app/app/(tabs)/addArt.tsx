@@ -142,7 +142,7 @@ const AddArt = () => {
 			});
 
 			Alert.alert("Success", "Artwork added successfully");
-			router.push("/home");
+			router.push("/collection");
 		} catch (error) {
 			console.error("Error creating artwork:", error);
 			Alert.alert("Error", "Failed to add artwork. Please try again.");

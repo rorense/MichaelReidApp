@@ -8,7 +8,7 @@ type ArtWorkHeaderProps = {
 
 const ArtWorkHeader: React.FC<ArtWorkHeaderProps> = ({ title }) => {
 	return (
-		<SafeAreaView className="bg-background">
+		<SafeAreaView className="bg-background mt-10">
 			<View className="flex flex-row m-7 justify-between">
 				<View className="w-1/6 items-center justify-center">
 					<PreviousButton />
