@@ -16,7 +16,7 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 	useFocusEffect(
 		React.useCallback(() => {
 			const backAction = () => {
-				navigation.navigate("home", { artworkCollectionId });
+				navigation.goBack();
 				return true;
 			};
 
