@@ -14,7 +14,7 @@
 		},
 		"android": {
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/images/adaptive-icon.png",
+				"foregroundImage": "./assets/image/Logo.png",
 				"backgroundColor": "#ffffff"
 			},
 			"package": "com.gherkinmedia.michaelreid"
@@ -38,6 +38,14 @@
 		],
 		"experiments": {
 			"typedRoutes": true
+		},
+		"extra": {
+			"router": {
+				"origin": false
+			},
+			"eas": {
+				"projectId": "9525aa74-00d1-45cd-9667-5a22f48202a8"
+			}
 		}
 	}
 }
