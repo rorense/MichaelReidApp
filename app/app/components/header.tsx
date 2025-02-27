@@ -6,22 +6,42 @@ import { Link, useNavigation } from "expo-router";
 
 interface HeaderProps {
 	title?: string;
+	isMainPage?: boolean;
+	link?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ title = "MICHAEL REID" }) => {
+const Header: React.FC<HeaderProps> = ({ title = "MICHAEL REID", isMainPage = true, link }) => {
 	const navigation = useNavigation();
 
 	return (
-		<SafeAreaView className="bg-background">
+		<SafeAreaView className="bg-background mt-10">
 			<View className="flex flex-row m-7 justify-between">
 				<View className="w-1/6">
-					{/* Menu Icon */}
-					<TouchableOpacity onPress={() => navigation.openDrawer()}>
-						<IconFeather
-							name="menu"
-							size={24}
-						/>
-					</TouchableOpacity>
+					{/* Menu Icon or Back Button */}
+					{isMainPage ? (
+						<TouchableOpacity onPress={() => navigation.openDrawer()}>
+							<IconFeather
+								name="menu"
+								size={24}
+							/>
+						</TouchableOpacity>
+					) : link ? (
+						<TouchableOpacity>
+							<Link href={link}>
+								<IconIon
+									name="arrow-back"
+									size={24}
+								/>
+							</Link>
+						</TouchableOpacity>
+					) : (
+						<TouchableOpacity onPress={() => navigation.goBack()}>
+							<IconIon
+								name="arrow-back"
+								size={24}
+							/>
+						</TouchableOpacity>
+					)}
 				</View>
 
 				<View className="w-1/2">
@@ -33,15 +53,7 @@ const Header: React.FC<HeaderProps> = ({ title = "MICHAEL REID" }) => {
 					</TouchableOpacity>
 				</View>
 
-				<View className="w-1/6 flex flex-row gap-4">
-					{/* Search Icon */}
-					<TouchableOpacity>
-						<IconFeather
-							name="search"
-							size={22}
-						/>
-					</TouchableOpacity>
-
+				<View className="w-1/6 flex flex-row justify-end">
 					{/* Add Icon */}
 					<TouchableOpacity>
 						<Link href="/addArtworkCollection">

@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import useAppwrite from "@/lib/useAppwrite";
 import { getArtworkCollectionByUser } from "@/lib/appwrite";
-import Header from "../components/Header";
 import { Link } from "expo-router";
 import CollectionCard from "../components/CollectionCard";
 import { useFocusEffect } from "@react-navigation/native";
+import Header from "../components/Header";
 
 const Collection = () => {
 	const { user } = useGlobalContext();
@@ -42,7 +42,7 @@ const Collection = () => {
 
 	return (
 		<>
-			<Header />
+			<Header isMainPage={true} />
 			<SafeAreaView className="bg-background flex-1">
 				{collection && collection.length > 0 ? (
 					<View className="flex justify-center">

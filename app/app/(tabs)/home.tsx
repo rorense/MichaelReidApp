@@ -1,4 +1,3 @@
-import Header from "../components/Header";
 import useAppwrite from "../../lib/useAppwrite";
 import { deleteArtworkCollection, getAllArtworksByUser } from "@/lib/appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,6 +9,7 @@ import React from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../types"; // Adjust the path as necessary
 import { useFocusEffect } from "@react-navigation/native";
+import Header from "../components/Header"; // Correct import path
 
 type HomeRouteProp = RouteProp<RootStackParamList, "home">;
 
@@ -107,7 +107,11 @@ const Home = () => {
 
 	return (
 		<>
-			<Header title={title || "MICHAEL REID"} />
+			<Header
+				title={title || "MICHAEL REID"}
+				isMainPage={false}
+				link="/collection"
+			/>
 			<SafeAreaView className="bg-background flex-1">{renderContent()}</SafeAreaView>
 		</>
 	);

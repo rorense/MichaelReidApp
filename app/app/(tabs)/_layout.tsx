@@ -11,23 +11,13 @@ const TabsLayout = () => {
 	return (
 		<DrawerLayout>
 			<Stack.Navigator>
-				<Stack.Screen
-					name="home"
-					options={{ headerShown: false }}
-				/>
-				<Stack.Screen
-					name="addArt"
-					options={{ headerShown: false }}
-				/>
+				<Stack.Screen name="home" />
+				<Stack.Screen name="addArt" />
 				<Stack.Screen
 					name="artworkpage"
-					options={{ headerShown: false }}
 					component={ArtworkPage}
 				/>
-				<Stack.Screen
-					name="collection"
-					options={{ headerShown: false }}
-				/>
+				<Stack.Screen name="collection" />
 			</Stack.Navigator>
 		</DrawerLayout>
 	);

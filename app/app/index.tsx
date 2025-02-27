@@ -64,7 +64,7 @@ const OnboardingScreen = () => {
 	if (!isLoading && isLoggedIn) return <Redirect href="/home" />;
 
 	return (
-		<SafeAreaView className="flex-1 bg-background w-full">
+		<SafeAreaView className="flex-1 bg-background w-full ">
 			{/* Rotating Image */}
 			<Animated.Image
 				source={require("../assets/image/Logo.png")}
@@ -72,7 +72,7 @@ const OnboardingScreen = () => {
 					width: 120,
 					height: 120,
 					transform: [{ rotate: rotateInterpolation }], // Apply rotation
-					marginTop: 20, // Adjust margin to ensure the image is not cut off
+					marginTop: 80, // Adjust margin to ensure the image is not cut off
 				}}
 				resizeMode="contain" // Ensure the whole image is used
 				className="ml-10"

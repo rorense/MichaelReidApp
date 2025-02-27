@@ -273,7 +273,7 @@ const AddArt = () => {
 								otherStyles={"w-[85vw]"}
 								value={form.edition?.toString() || ""}
 								handleChangeText={handleEditionChange}
-								keyboardType="number"
+								fieldType="number"
 							/>
 							<View>
 								<CustomButton
