@@ -11,22 +11,8 @@ const OnboardingScreen = () => {
 	const fadeAnim3 = useState(new Animated.Value(0))[0];
 	const buttonAnim = useState(new Animated.Value(1))[0];
 
-	// Create an animated value for rotation
-	const rotateAnim = useState(new Animated.Value(0))[0];
-
 	useEffect(() => {
 		clearSessionOnStart();
-	}, []);
-
-	useEffect(() => {
-		// Start the rotation animation
-		Animated.loop(
-			Animated.timing(rotateAnim, {
-				toValue: 1, // Rotate from 0 to 1 (360 degrees)
-				duration: 4000, // Duration of one full rotation
-				useNativeDriver: true, // Use native driver for better performance
-			})
-		).start();
 	}, []);
 
 	useEffect(() => {
@@ -53,25 +39,18 @@ const OnboardingScreen = () => {
 		if (step < 3) setStep((prev) => prev + 1);
 	};
 
-	// Interpolate the rotation value
-	const rotateInterpolation = rotateAnim.interpolate({
-		inputRange: [0, 1],
-		outputRange: ["0deg", "360deg"], // Rotate from 0 to 360 degrees
-	});
-
 	const { isLoading, isLoggedIn } = useGlobalContext();
 
 	if (!isLoading && isLoggedIn) return <Redirect href="/home" />;
 
 	return (
 		<SafeAreaView className="flex-1 bg-background w-full ">
-			{/* Rotating Image */}
-			<Animated.Image
+			{/* Static Image */}
+			<Image
 				source={require("../assets/image/Logo.png")}
 				style={{
 					width: 120,
 					height: 120,
-					transform: [{ rotate: rotateInterpolation }], // Apply rotation
 					marginTop: 80, // Adjust margin to ensure the image is not cut off
 				}}
 				resizeMode="contain" // Ensure the whole image is used

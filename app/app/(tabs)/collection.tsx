@@ -81,6 +81,7 @@ const Collection = () => {
 					</View>
 				) : (
 					<View className="mt-10">
+						<Text className="m-20 text-center font-black font-DMSans">Start by adding an artwork collection!</Text>
 						<Text className="text-xl text-center font-black font-DMSans">You don't have any artworks collection!</Text>
 						<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-5">
 							<Link href={"/addArtworkCollection"}>

@@ -187,7 +187,6 @@ const AddArt = () => {
 					)}
 
 					{/* Year */}
-					{/* Year */}
 					{step === 2 && (
 						<View className="justify-center min-h-[65vh] text-center">
 							<Text className="mt-10 text-center font-DMSans">Enter year of work</Text>

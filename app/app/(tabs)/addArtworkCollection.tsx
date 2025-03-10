@@ -1,12 +1,12 @@
 import { View, Text, SafeAreaView, Alert, BackHandler } from "react-native";
 import React, { useState } from "react";
-import AddArtWorkHeader from "../components/AddArtWorkHeader";
 import FormField from "../components/FormField";
 import CustomButton from "../components/CustomButton";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { createArtworkCollection } from "@/lib/appwrite";
 import { router } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
+import AddCollectionHeader from "../components/AddCollectionHeader";
 
 const AddArtworkCollection = () => {
 	const { user } = useGlobalContext();
@@ -53,7 +53,7 @@ const AddArtworkCollection = () => {
 
 	return (
 		<>
-			<AddArtWorkHeader title="Add Collection" />
+			<AddCollectionHeader title="Add Collection" />
 			<SafeAreaView className="bg-background h-full ">
 				<View className="w-full justify-center items-center min-h-[65vh] flex">
 					<View className="justify-center min-h-[65vh] text-center">
