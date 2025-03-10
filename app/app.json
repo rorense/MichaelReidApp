@@ -1,16 +1,21 @@
 {
 	"expo": {
-		"name": "Michael Reid",
+		"name": "Michael Reid Gallery",
 		"slug": "app",
 		"version": "1.0.0",
 		"orientation": "portrait",
-		"icon": "./assets/image/Logo.png",
+		"icon": "./assets/image/Icon.png",
 		"scheme": "myapp",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
 		"ios": {
 			"supportsTablet": true,
-			"package": "com.gherkinmedia.michaelreid"
+			"package": "com.gherkinmedia.michaelreid",
+			"bundleIdentifier": "com.gherkinmedia.michaelreid",
+			"infoPlist": {
+				"ITSAppUsesNonExemptEncryption": false
+			},
+			"buildNumber": "2"
 		},
 		"android": {
 			"adaptiveIcon": {
