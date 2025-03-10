@@ -1,21 +1,27 @@
 {
-  "cli": {
-    "version": ">= 15.0.12",
-    "appVersionSource": "remote"
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
-    },
-    "preview": {
-      "distribution": "internal"
-    },
-    "production": {
-      "autoIncrement": true
-    }
-  },
-  "submit": {
-    "production": {}
-  }
+	"cli": {
+		"version": ">= 15.0.12",
+		"appVersionSource": "remote"
+	},
+	"build": {
+		"development": {
+			"developmentClient": true,
+			"distribution": "internal"
+		},
+		"preview": {
+			"distribution": "internal"
+		},
+		"production": {
+			"autoIncrement": true
+		}
+	},
+	"submit": {
+		"production": {
+			"ios": {
+				"appleId": "support@gherkinmedia.co.nz",
+				"ascAppId": "6742937867",
+				"appleTeamId": "CHB4MCWZ39"
+			}
+		}
+	}
 }

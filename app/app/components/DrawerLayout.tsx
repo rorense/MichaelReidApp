@@ -2,7 +2,7 @@ import { signOut } from "@/lib/appwrite";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { Link, router, useNavigation } from "expo-router";
 import { Drawer } from "expo-router/drawer";
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TouchableOpacity, Alert, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const DrawerContent = (props: any) => {
@@ -21,8 +21,11 @@ const DrawerContent = (props: any) => {
 	return (
 		<DrawerContentScrollView {...props}>
 			<View className="flex-1">
-				<View>
-					<Text className="text-center font-DMSans mt-4 mb-5 text-4xl">MICHAEL REID</Text>
+				<View className="items-center">
+					<Image
+						source={require("../../assets/image/michael_reid.png")}
+						style={{ width: 160, height: 100, resizeMode: "contain" }}
+					/>
 					<TouchableOpacity onPress={() => {}}>
 						<Link href="/collection">
 							<Text className="text-3xl font-DMSans mt-5">SEE COLLECTION</Text>

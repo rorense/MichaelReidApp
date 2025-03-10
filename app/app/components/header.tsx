@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import IconFeather from "react-native-vector-icons/Feather";
 import IconIon from "react-native-vector-icons/Ionicons";
@@ -10,7 +10,7 @@ interface HeaderProps {
 	link?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ title = "MICHAEL REID", isMainPage = true, link }) => {
+const Header: React.FC<HeaderProps> = ({ title, isMainPage = true, link }) => {
 	const navigation = useNavigation();
 
 	return (
@@ -44,11 +44,18 @@ const Header: React.FC<HeaderProps> = ({ title = "MICHAEL REID", isMainPage = tr
 					)}
 				</View>
 
-				<View className="w-1/2">
+				<View className="w-1/2 flex justify-center items-center">
 					{/* Web Title */}
 					<TouchableOpacity>
 						<Link href="/collection">
-							<Text className="text-center text-2xl">{title}</Text>
+							{title ? (
+								<Text className="text-center text-2xl font-bold">{title}</Text>
+							) : (
+								<Image
+									source={require("../../assets/image/michael_reid.png")}
+									style={{ width: 180, resizeMode: "contain" }}
+								/>
+							)}
 						</Link>
 					</TouchableOpacity>
 				</View>
