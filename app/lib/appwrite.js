@@ -205,3 +205,25 @@ export const deleteArtworkCollection = async (collectionId) => {
 		throw new Error(error);
 	}
 };
+
+export const deleteUser = async (userId, accountId) => {
+	try {
+		const deleteUser = await databases.deleteDocument(appwriteConfig.databaseId, appwriteConfig.userCollectionId, userId);
+
+		const deleteAccount = await users.delete(accountId);
+
+		return { deleteUser, deleteAccount };
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
+export const resetUserPassword = async (oldPassword, newPassword) => {
+	try {
+		const updatedPassword = await account.updatePassword(newPassword, oldPassword);
+		console.log("New password: ", updatedPassword);
+		return updatedPassword;
+	} catch (error) {
+		throw new Error(error);
+	}
+};

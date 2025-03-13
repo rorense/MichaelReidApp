@@ -96,7 +96,7 @@ const Home = () => {
 				<View className="flex-1 justify-center items-center">
 					<ActivityIndicator
 						size="large"
-						color="#0000ff"
+						color="#7D1325"
 					/>
 				</View>
 			);

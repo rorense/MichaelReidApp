@@ -6,8 +6,6 @@ import { View, Text, TouchableOpacity, Alert, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const DrawerContent = (props: any) => {
-	const navigation = useNavigation();
-
 	const handleSignOut = async () => {
 		try {
 			await signOut();
@@ -31,11 +29,18 @@ const DrawerContent = (props: any) => {
 							<Text className="text-3xl font-DMSans mt-5">SEE COLLECTION</Text>
 						</Link>
 					</TouchableOpacity>
-					<TouchableOpacity onPress={handleSignOut}>
-						<Text className="text-3xl font-DMSans ">SIGN OUT</Text>
+					<TouchableOpacity onPress={() => {}}>
+						<Link href="/profile">
+							<Text className="text-3xl font-DMSans mt-5">PROFILE</Text>
+						</Link>
 					</TouchableOpacity>
 				</View>
-				<View className="mt-[500px] mb-4">
+				<View className="mt-[400px] mb-4">
+					<TouchableOpacity
+						onPress={handleSignOut}
+						className="flex justify-center items-center">
+						<Text className="text-3xl font-DMSans ">SIGN OUT</Text>
+					</TouchableOpacity>
 					<Link href="https://michaelreid.com.au/">
 						<Text className="text-center font-DMSans text-xl text-blue-500">Visit Website</Text>
 					</Link>

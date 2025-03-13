@@ -15,7 +15,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, handlePress, isLoadi
 			activeOpacity={0.7}
 			className={`${
 				color === "brown" ? "bg-primary" : "bg-white border-black border-[1px]"
-			} py-4 rounded-full items-center flex flex-row justify-center text-center mt-5`}>
+			} p-4 rounded-full items-center flex flex-row justify-center text-center mt-5`}>
 			{isLoading ? (
 				<ActivityIndicator
 					size="small"
