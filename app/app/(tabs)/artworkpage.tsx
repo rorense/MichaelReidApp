@@ -31,7 +31,7 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 		try {
 			await deleteArtwork($id);
 			Alert.alert("Success", "Artwork deleted successfully");
-			router.push("/home", { artworkCollectionId }); // Navigate back to the home page for that collection
+			router.push("/collection"); // Navigate back to the home page for that collection
 		} catch (error) {
 			Alert.alert("Error", "Failed to delete artwork. Please try again.");
 		}
