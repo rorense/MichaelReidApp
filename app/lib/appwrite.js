@@ -48,11 +48,13 @@ export const createUser = async (email, password, username) => {
 export const SignIn = async (email, password) => {
 	try {
 		const session = await account.createEmailPasswordSession(email, password);
+
 		return session;
 	} catch (error) {
 		throw new Error(error);
 	}
 };
+
 
 export const getCurrentUser = async () => {
 	try {
@@ -208,30 +210,14 @@ export const deleteArtworkCollection = async (collectionId) => {
 
 export const deleteUser = async (userId, accountId) => {
 	try {
-		const response = await fetch('https://cloud.appwrite.io/v1/functions/YOUR_FUNCTION_ID/executions', {
-			method: 'POST',
-			headers: {
-				'X-Appwrite-Project': 'YOUR_PROJECT_ID',
-				'X-Appwrite-Key': 'YOUR_API_KEY', // Secure this in an environment variable
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ userId, accountId })
-		});
+		const deleteUser = await databases.deleteDocument(appwriteConfig.databaseId, appwriteConfig.userCollectionId, userId);
 
-		const data = await response.json();
-
-		if (response.ok) {
-			console.log('User deleted successfully:', data);
-			return data;
-		} else {
-			throw new Error(data.message || 'Failed to delete user');
-		}
+		return deleteUser;
+		
 	} catch (error) {
-		console.error('Error deleting user:', error);
-		throw error;
+		throw new Error(error);
 	}
 };
-
 
 
 export const resetUserPassword = async (oldPassword, newPassword) => {

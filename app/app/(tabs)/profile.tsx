@@ -14,8 +14,8 @@ const profile = () => {
 
 	const onDelete = async () => {
 		try {
-			await deleteUser(user.$id, user.accountId);
-			router.push("/index");
+			await deleteUser(user.$id);
+			router.push("/");
 			Alert.alert("Success", "User deleted successfully");
 			clearSessionOnStart();
 		} catch (error) {
@@ -26,7 +26,7 @@ const profile = () => {
 	const confirmDelete = () => {
 		Alert.alert(
 			"Delete Account",
-			"Are you sure you want to delete your account? This action cannot be undone.",
+			"Are you sure you want to delete your account? This will delete all related artworks. This action cannot be undone.",
 			[
 				{
 					text: "Cancel",

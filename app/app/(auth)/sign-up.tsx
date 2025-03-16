@@ -30,6 +30,7 @@ const SignUpPage = () => {
 			setIsLogged(true);
 
 			router.replace("/collection");
+			Alert.alert("Success", "Welcome to Michael Reid!");
 		} catch (error) {
 			console.log(error);
 			Alert.alert("Error", "Something went wrong");

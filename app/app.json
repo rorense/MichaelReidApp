@@ -13,7 +13,9 @@
       "package": "com.gherkinmedia.michaelreid",
       "bundleIdentifier": "com.gherkinmedia.michaelreid",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSPhotoLibraryUsageDescription": "This app requires access to your photo library to allow you to select and upload images for your artwork collection. For example, you can choose images from your library to add to your personal gallery of artwork."
+      }
       },
       "config": {
         "usesPushNotifications": false
