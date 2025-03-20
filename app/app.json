@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Michael Reid",
+    "name": "MICHAEL REID GALLERY",
     "slug": "app",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/image/Logo.png",
+    "icon": "./assets/image/app_icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -37,7 +37,7 @@
         [
           "expo-splash-screen",
           {
-            "image": "./assets/image/Logo.png",
+            "image": "./assets/image/app_icon.png",
             "imageWidth": 200,
             "resizeMode": "contain",
             "backgroundColor": "#ffffff"

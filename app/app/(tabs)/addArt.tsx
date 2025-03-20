@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, Image } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, Image, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import React, { useState } from "react";
 import FormField from "../components/FormField";
 import CustomButton from "../components/CustomButton";
@@ -163,175 +163,180 @@ const AddArt = () => {
 	};
 
 	return (
-		<>
-			<AddArtWorkHeader title="Add Artwork" />
-			<SafeAreaView className="bg-background h-full">
-				<View className="w-full justify-center items-center min-h-[65vh] flex">
-					{/* Title */}
-					{step === 1 && (
-						<View className="justify-center min-h-[65vh] text-center">
-							<Text className={twMerge("mt-10 text-center font-DMSans")} style={{ fontSize: RFValue(14) }}>Enter title of work</Text>
-							<FormField
-								placeholder="Title of Work"
-								otherStyles={"w-[85vw]"}
-								value={form.title}
-								handleChangeText={(e: any) => setForm({ ...form, title: e })}
-							/>
-							<View>
-								<CustomButton
-									title="Next"
-									handlePress={nextStep}
-									isLoading={false}
-									color="brown"
-								/>
-							</View>
-						</View>
-					)}
+        <>
+            <AddArtWorkHeader title="Add Artwork" />
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{ flex: 1 }}
+            >
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                    <SafeAreaView className="bg-background h-full">
+                        <View className="w-full justify-center items-center min-h-[65vh] flex">
+                            {/* Title */}
+                            {step === 1 && (
+                                <View className="justify-center min-h-[65vh] text-center">
+                                    <Text className={twMerge("mt-10 text-center font-DMSans")} style={{ fontSize: RFValue(14) }}>Enter title of work</Text>
+                                    <FormField
+                                        placeholder="Title of Work"
+                                        otherStyles={"w-[85vw]"}
+                                        value={form.title}
+                                        handleChangeText={(e: any) => setForm({ ...form, title: e })}
+                                    />
+                                    <View>
+                                        <CustomButton
+                                            title="Next"
+                                            handlePress={nextStep}
+                                            isLoading={false}
+                                            color="brown"
+                                        />
+                                    </View>
+                                </View>
+                            )}
 
-					{/* Year */}
-					{step === 2 && (
-						<View className="justify-center min-h-[65vh] text-center">
-							<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter year of work</Text>
-							<FormField
-								placeholder="Year of Work"
-								otherStyles={"w-[85vw]"}
-								value={form.year?.toString() || ""}
-								handleChangeText={handleYearChange}
-								fieldType="number"
-							/>
-							<View>
-								<CustomButton
-									title="Back"
-									handlePress={prevStep}
-									isLoading={false}
-								/>
-								<CustomButton
-									title="Next"
-									handlePress={nextStep}
-									isLoading={false}
-									color="brown"
-								/>
-							</View>
-						</View>
-					)}
-					{/* Dimensions */}
-					{step === 3 && (
-						<View className="justify-center min-h-[65vh] text-center">
-							<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Artwork Dimensions</Text>
-							<FormField
-								placeholder="Dimensions"
-								otherStyles={"w-[85vw]"}
-								value={form.dimensions}
-								handleChangeText={(e: any) => setForm({ ...form, dimensions: e })}
-							/>
-							<View>
-								<CustomButton
-									title="Back"
-									handlePress={prevStep}
-									isLoading={false}
-								/>
-								<CustomButton
-									title="Next"
-									handlePress={nextStep}
-									isLoading={false}
-									color="brown"
-								/>
-							</View>
-						</View>
-					)}
-					{/* Price */}
-					{step === 4 && (
-						<View className="justify-center min-h-[65vh] text-center">
-							<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter Price</Text>
-							<FormField
-								placeholder="Enter Price"
-								otherStyles={"w-[85vw]"}
-								value={form.price?.toString() || ""}
-								handleChangeText={handlePriceChange}
-								fieldType="number"
-							/>
-							<View>
-								<CustomButton
-									title="Back"
-									handlePress={prevStep}
-									isLoading={false}
-								/>
-								<CustomButton
-									title="Next"
-									handlePress={nextStep}
-									isLoading={false}
-									color="brown"
-								/>
-							</View>
-						</View>
-					)}
-					{/* Edition/More */}
-					{step === 5 && (
-						<View className="justify-center min-h-[65vh] text-center">
-							<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Edition/More</Text>
-							<FormField
-								placeholder="Edition"
-								otherStyles={"w-[85vw]"}
-								value={form.edition?.toString() || ""}
-								handleChangeText={handleEditionChange}
-								fieldType="number"
-							/>
-							<View>
-								<CustomButton
-									title="Back"
-									handlePress={prevStep}
-									isLoading={false}
-								/>
-								<CustomButton
-									title="Next"
-									handlePress={nextStep}
-									isLoading={false}
-									color="brown"
-								/>
-							</View>
-						</View>
-					)}
-					{/* Pictures */}
-					{step === 6 && (
-						<View className="justify-center min-h-[65vh] text-center w-[85vw]">
-							<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Pictures</Text>
-							<TouchableOpacity onPress={() => openPicker()}>
-								{form.images ? (
-									<Image
-										source={{ uri: form.images.uri }}
-										resizeMode="cover"
-										className="w-full h-64 rounded-xl"
-									/>
-								) : (
-									<View className="w-full h-64 bg-gray-200 rounded-2xl justify-center items-center">
-										<View className="w-14 h-14 border border-dashed justify-center items-center">
-											<Icon
-												name="upload"
-												size={24}
-											/>
-										</View>
-									</View>
-								)}
-							</TouchableOpacity>
-							<View>
-								<CustomButton
-									title="Back"
-									handlePress={prevStep}
-									isLoading={false}
-								/>
-								<CustomButton
-									title="Complete"
-									handlePress={submit}
-									isLoading={uploading}
-									color="brown"
-								/>
-							</View>
-						</View>
-					)}
-				</View>
-			</SafeAreaView>
-		</>
-	);
-};
-
+                            {/* Year */}
+                            {step === 2 && (
+                                <View className="justify-center min-h-[65vh] text-center">
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter year of work</Text>
+                                    <FormField
+                                        placeholder="Year of Work"
+                                        otherStyles={"w-[85vw]"}
+                                        value={form.year?.toString() || ""}
+                                        handleChangeText={handleYearChange}
+                                        fieldType="number"
+                                    />
+                                    <View>
+                                        <CustomButton
+                                            title="Back"
+                                            handlePress={prevStep}
+                                            isLoading={false}
+                                        />
+                                        <CustomButton
+                                            title="Next"
+                                            handlePress={nextStep}
+                                            isLoading={false}
+                                            color="brown"
+                                        />
+                                    </View>
+                                </View>
+                            )}
+                            {/* Dimensions */}
+                            {step === 3 && (
+                                <View className="justify-center min-h-[65vh] text-center">
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Artwork Dimensions</Text>
+                                    <FormField
+                                        placeholder="Dimensions"
+                                        otherStyles={"w-[85vw]"}
+                                        value={form.dimensions}
+                                        handleChangeText={(e: any) => setForm({ ...form, dimensions: e })}
+                                    />
+                                    <View>
+                                        <CustomButton
+                                            title="Back"
+                                            handlePress={prevStep}
+                                            isLoading={false}
+                                        />
+                                        <CustomButton
+                                            title="Next"
+                                            handlePress={nextStep}
+                                            isLoading={false}
+                                            color="brown"
+                                        />
+                                    </View>
+                                </View>
+                            )}
+                            {/* Price */}
+                            {step === 4 && (
+                                <View className="justify-center min-h-[65vh] text-center">
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter Price</Text>
+                                    <FormField
+                                        placeholder="Enter Price"
+                                        otherStyles={"w-[85vw]"}
+                                        value={form.price?.toString() || ""}
+                                        handleChangeText={handlePriceChange}
+                                        fieldType="number"
+                                    />
+                                    <View>
+                                        <CustomButton
+                                            title="Back"
+                                            handlePress={prevStep}
+                                            isLoading={false}
+                                        />
+                                        <CustomButton
+                                            title="Next"
+                                            handlePress={nextStep}
+                                            isLoading={false}
+                                            color="brown"
+                                        />
+                                    </View>
+                                </View>
+                            )}
+                            {/* Edition/More */}
+                            {step === 5 && (
+                                <View className="justify-center min-h-[65vh] text-center">
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Edition/More</Text>
+                                    <FormField
+                                        placeholder="Edition"
+                                        otherStyles={"w-[85vw]"}
+                                        value={form.edition?.toString() || ""}
+                                        handleChangeText={handleEditionChange}
+                                        fieldType="number"
+                                    />
+                                    <View>
+                                        <CustomButton
+                                            title="Back"
+                                            handlePress={prevStep}
+                                            isLoading={false}
+                                        />
+                                        <CustomButton
+                                            title="Next"
+                                            handlePress={nextStep}
+                                            isLoading={false}
+                                            color="brown"
+                                        />
+                                    </View>
+                                </View>
+                            )}
+                            {/* Pictures */}
+                            {step === 6 && (
+                                <View className="justify-center min-h-[65vh] text-center w-[85vw]">
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Pictures</Text>
+                                    <TouchableOpacity onPress={() => openPicker()}>
+                                        {form.images ? (
+                                            <Image
+                                                source={{ uri: form.images.uri }}
+                                                resizeMode="cover"
+                                                className="w-full h-64 rounded-xl"
+                                            />
+                                        ) : (
+                                            <View className="w-full h-64 bg-gray-200 rounded-2xl justify-center items-center">
+                                                <View className="w-14 h-14 border border-dashed justify-center items-center">
+                                                    <Icon
+                                                        name="upload"
+                                                        size={24}
+                                                    />
+                                                </View>
+                                            </View>
+                                        )}
+                                    </TouchableOpacity>
+                                    <View>
+                                        <CustomButton
+                                            title="Back"
+                                            handlePress={prevStep}
+                                            isLoading={false}
+                                        />
+                                        <CustomButton
+                                            title="Complete"
+                                            handlePress={submit}
+                                            isLoading={uploading}
+                                            color="brown"
+                                        />
+                                    </View>
+                                </View>
+                            )}
+                        </View>
+                    </SafeAreaView>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </>
+    )}
 export default AddArt;
