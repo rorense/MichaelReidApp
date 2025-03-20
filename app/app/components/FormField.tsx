@@ -1,6 +1,8 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
+import { twMerge } from "tailwind-merge";
+import { RFValue } from "react-native-responsive-fontsize";
 
 interface FormFieldProps {
 	title?: string;
@@ -16,10 +18,11 @@ const FormField: React.FC<FormFieldProps> = ({ title, value, placeholder, handle
 
 	return (
 		<View className={`space-y-2 ${otherStyles}`}>
-			<Text className="text-l font-DMSans">{title}</Text>
+			<Text className={twMerge("font-DMSans")} style={{ fontSize: RFValue(16)}}>{title}</Text>
 			<View className="w-full border-b-[1px] h-16 px-4 items-center flex-row">
 				<TextInput
-					className="flex-1 font-DMSans text-xl"
+					className={twMerge("flex-1 font-DMSans")}
+					style={{ fontSize: RFValue(18)}}
 					value={value}
 					placeholder={placeholder}
 					onChangeText={handleChangeText}

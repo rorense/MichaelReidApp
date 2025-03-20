@@ -7,6 +7,7 @@ import { Link } from "expo-router";
 import CollectionCard from "../components/CollectionCard";
 import { useFocusEffect } from "@react-navigation/native";
 import Header from "../components/Header";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const Collection = () => {
 	const { user } = useGlobalContext();
@@ -50,7 +51,7 @@ const Collection = () => {
 			return (
 				<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-5">
 					<Link href={"/addArtworkCollection"}>
-						<Text className="text-center font-DMSans text-white text-2xl">Create Collection</Text>
+						<Text className="text-center font-DMSans text-white" style={{ fontSize: RFValue(20)}}>Create Collection</Text>
 					</Link>
 				</TouchableOpacity>
 			);
@@ -81,11 +82,11 @@ const Collection = () => {
 					</View>
 				) : (
 					<View className="mt-10">
-						<Text className="m-20 text-center font-black font-DMSans">Start by adding an artwork collection!</Text>
-						<Text className="text-xl text-center font-black font-DMSans">You don't have any artworks collection!</Text>
+						<Text className="m-20 text-center font-black font-DMSans" style={{ fontSize: RFValue(14)}}>Start by adding an artwork collection!</Text>
+						<Text className="text-center font-black font-DMSans" style={{ fontSize: RFValue(18)}}>You don't have any artworks collection!</Text>
 						<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-5">
 							<Link href={"/addArtworkCollection"}>
-								<Text className="text-center font-DMSans text-white text-2xl">Create Collection</Text>
+								<Text className="text-center font-DMSans text-white" style={{ fontSize: RFValue(20)}}>Create Collection</Text>
 							</Link>
 						</TouchableOpacity>
 					</View>

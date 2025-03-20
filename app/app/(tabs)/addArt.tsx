@@ -12,6 +12,8 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../../types"; // Adjust the path as necessary
 import { router } from "expo-router";
 import * as ImageManipulator from "expo-image-manipulator";
+import { twMerge } from "tailwind-merge";
+import { RFValue } from "react-native-responsive-fontsize";
 
 type AddArtRouteProp = RouteProp<RootStackParamList, "addArt">;
 
@@ -23,16 +25,16 @@ const AddArt = () => {
 	const [uploading, setUploading] = useState(false);
 	const [form, setForm] = useState<{
 		title: string;
-		year: number | null; // Change to number or null
-		price: number | null; // Change to number or null
-		edition: number | null; // Change to number or null
+		year: number | null;
+		price: number | null; 
+		edition: number | null; 
 		dimensions: string;
 		images: { name: string; mimeType: string; fileSize: number; uri: string } | null;
 	}>({
 		title: "",
-		year: null, // Initialize as null
-		price: null, // Initialize as null
-		edition: null, // Initialize as null
+		year: null,
+		price: null, 
+		edition: null, 
 		dimensions: "",
 		images: null,
 	});
@@ -77,7 +79,7 @@ const AddArt = () => {
 					case "webp":
 						return "image/webp";
 					default:
-						return "image/jpeg"; // Fallback to JPEG if the type is unknown
+						return "image/jpeg"; 
 				}
 			};
 
@@ -168,7 +170,7 @@ const AddArt = () => {
 					{/* Title */}
 					{step === 1 && (
 						<View className="justify-center min-h-[65vh] text-center">
-							<Text className="mt-10 text-center font-DMSans">Enter title of work</Text>
+							<Text className={twMerge("mt-10 text-center font-DMSans")} style={{ fontSize: RFValue(14) }}>Enter title of work</Text>
 							<FormField
 								placeholder="Title of Work"
 								otherStyles={"w-[85vw]"}
@@ -189,7 +191,7 @@ const AddArt = () => {
 					{/* Year */}
 					{step === 2 && (
 						<View className="justify-center min-h-[65vh] text-center">
-							<Text className="mt-10 text-center font-DMSans">Enter year of work</Text>
+							<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter year of work</Text>
 							<FormField
 								placeholder="Year of Work"
 								otherStyles={"w-[85vw]"}
@@ -215,7 +217,7 @@ const AddArt = () => {
 					{/* Dimensions */}
 					{step === 3 && (
 						<View className="justify-center min-h-[65vh] text-center">
-							<Text className="mt-10 text-center font-DMSans">Artwork Dimensions</Text>
+							<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Artwork Dimensions</Text>
 							<FormField
 								placeholder="Dimensions"
 								otherStyles={"w-[85vw]"}
@@ -240,7 +242,7 @@ const AddArt = () => {
 					{/* Price */}
 					{step === 4 && (
 						<View className="justify-center min-h-[65vh] text-center">
-							<Text className="mt-10 text-center font-DMSans">Enter Price</Text>
+							<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter Price</Text>
 							<FormField
 								placeholder="Enter Price"
 								otherStyles={"w-[85vw]"}
@@ -266,7 +268,7 @@ const AddArt = () => {
 					{/* Edition/More */}
 					{step === 5 && (
 						<View className="justify-center min-h-[65vh] text-center">
-							<Text className="mt-10 text-center font-DMSans">Edition/More</Text>
+							<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Edition/More</Text>
 							<FormField
 								placeholder="Edition"
 								otherStyles={"w-[85vw]"}
@@ -292,7 +294,7 @@ const AddArt = () => {
 					{/* Pictures */}
 					{step === 6 && (
 						<View className="justify-center min-h-[65vh] text-center w-[85vw]">
-							<Text className="mt-10 text-center font-DMSans">Pictures</Text>
+							<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Pictures</Text>
 							<TouchableOpacity onPress={() => openPicker()}>
 								{form.images ? (
 									<Image

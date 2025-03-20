@@ -3,6 +3,8 @@ import React from "react";
 import IconFeather from "react-native-vector-icons/Feather";
 import IconIon from "react-native-vector-icons/Ionicons";
 import { Link, useNavigation } from "expo-router";
+import { twMerge } from "tailwind-merge";
+import { RFValue } from "react-native-responsive-fontsize";
 
 interface HeaderProps {
 	title?: string;
@@ -49,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ title, isMainPage = true, link }) => {
 					<TouchableOpacity>
 						<Link href="/collection">
 							{title ? (
-								<Text className="text-center text-2xl font-bold">{title}</Text>
+								<Text className={twMerge("text-center font-bold")} style={{ fontSize: RFValue(20)}}>{title}</Text>
 							) : (
 								<Image
 									source={require("../../assets/image/michael_reid.png")}

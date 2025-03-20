@@ -6,6 +6,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import ArtWorkHeader from "../components/ArtWorkHeader";
 import { deleteArtwork } from "@/lib/appwrite";
 import { useFocusEffect } from "@react-navigation/native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 type ArtworkPageRouteProp = RouteProp<RootStackParamList, "artworkpage">;
 
@@ -59,20 +60,20 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 					/>
 				)}
 				<View className="mt-10 mb-10">
-					<Text className="font-semibold font-DMSans text-3xl text-black text-center">{title}</Text>
-					<Text className="font-DMSans text-xl text-black text-center">Year: {year}</Text>
+					<Text className="font-semibold font-DMSans text-black text-center" style={{ fontSize: RFValue(24)}}>{title}</Text>
+					<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18)}}>Year: {year}</Text>
 				</View>
-				<Text className="font-DMSans text-xl text-black text-center">Edition: {edition}</Text>
-				<Text className="font-DMSans text-xl text-black text-center">Dimensions: {dimensions}</Text>
+				<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18)}}>Edition: {edition}</Text>
+				<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18)}}>Dimensions: {dimensions}</Text>
 				<View className="mt-5">
-					<Text className="font-semibold font-DMSans text-2xl text-[#7D1325] text-center">${price}</Text>
+					<Text className="font-semibold font-DMSans text-[#7D1325] text-center" style={{ fontSize: RFValue(20)}}>${price}</Text>
 				</View>
 
 				<View>
 					<TouchableOpacity
 						onPress={deleteArt}
 						className="mt-5">
-						<Text className="font-DMSans text-center text-red-800">Delete Artwork</Text>
+						<Text className="font-DMSans text-center text-red-800" style={{ fontSize: RFValue(14)}}>Delete Artwork</Text>
 					</TouchableOpacity>
 				</View>
 			</SafeAreaView>

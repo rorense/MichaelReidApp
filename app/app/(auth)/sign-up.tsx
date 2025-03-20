@@ -6,6 +6,7 @@ import CustomButton from "../components/CustomButton";
 import { Link, router } from "expo-router";
 import { createUser } from "../../lib/appwrite.js";
 import { useGlobalContext } from "@/context/GlobalProvider";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const SignUpPage = () => {
 	const [form, setForm] = useState({
@@ -43,7 +44,7 @@ const SignUpPage = () => {
 		<SafeAreaView className="h-full bg-background">
 			<ScrollView>
 				<View className="w-full justify-center min-h-[85vh] px-4 my-6">
-					<Text className="text-3xl text-primary text-center font-DMSans">Sign Up to Michael Reids</Text>
+					<Text className="text-primary text-center font-DMSans" style={{ fontSize: RFValue(24)}}>Sign Up to Michael Reids Gallery</Text>
 					<FormField
 						title="Username"
 						value={form.username}
@@ -72,9 +73,9 @@ const SignUpPage = () => {
 						color="brown"
 					/>
 					<View>
-						<Text className="text-center font-DMSans mt-4">Already have an account?</Text>
+						<Text className="text-center font-DMSans mt-4" style={{ fontSize: RFValue(20)}}>Already have an account?</Text>
 						<Link href="/sign-in">
-							<Text className="text-center font-DMSans mt-5 text-red-950">Login to your account</Text>
+							<Text className="text-center font-DMSans mt-5 text-red-950" style={{ fontSize: RFValue(20)}}>Login to your account</Text>
 						</Link>
 					</View>
 				</View>

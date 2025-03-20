@@ -3,7 +3,9 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types"; // Adjust the path as necessary
+import { RootStackParamList } from "../../types"; 
+import { RFValue } from "react-native-responsive-fontsize";
+import { twMerge } from 'tailwind-merge';
 
 type ArtworkCardNavigationProp = StackNavigationProp<RootStackParamList, "artworkpage">;
 
@@ -22,15 +24,15 @@ const ArtworkCard = ({ artwork }: { artwork: any }) => {
 					source={{ uri: imageUrl }}
 					className="w-[80vw] h-96 justify-end top-10">
 					<View className="m-3 p-3 bg-[#7D1325]">
-						<Text className="text-white text-lg font-bold font-DMSans">{title}</Text>
-						<Text className="text-white font-DMSans">
+						<Text className={twMerge("text-white font-bold font-DMSans")} style={{ fontSize: RFValue(16)}}>{title}</Text>
+						<Text className={twMerge("text-white font-DMSans")} style={{ fontSize: RFValue(14)}}>
 							{year} | {dimensions}
 						</Text>
 					</View>
 				</ImageBackground>
 			) : (
 				<View className="p-3 bg-gray-500 h-96 justify-center items-center">
-					<Text className="text-white">No Image Available</Text>
+					<Text className={twMerge("text-white font-DMSans")} style={{ fontSize: RFValue(14)}}>No Image Available</Text>
 				</View>
 			)}
 		</TouchableOpacity>

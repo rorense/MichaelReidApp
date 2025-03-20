@@ -3,14 +3,15 @@ import { deleteArtworkCollection, getAllArtworksByUser } from "@/lib/appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, RefreshControl, Text, TouchableOpacity, View, ActivityIndicator, Alert, BackHandler } from "react-native";
 import ArtworkCard from "../components/ArtworkCard";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import React from "react";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
-import { RootStackParamList } from "../../types"; // Adjust the path as necessary
+import { RootStackParamList } from "../../types";
 import { useFocusEffect } from "@react-navigation/native";
-import Header from "../components/Header"; // Correct import path
+import Header from "../components/Header";
 import EmptyState from "../components/EmptyState";
+import { RFValue } from "react-native-responsive-fontsize";
 
 type HomeRouteProp = RouteProp<RootStackParamList, "home">;
 
@@ -68,7 +69,7 @@ const Home = () => {
 					{artworks && artworks.length === 0 && <EmptyState />}
 					<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-12">
 						<Text
-							className="text-center font-DMSans text-white text-2xl"
+							className="text-center font-DMSans text-white" style={{ fontSize: RFValue(20)}}
 							onPress={() => navigation.navigate("addArt", { artworkCollectionId })}>
 							Add Artwork
 						</Text>
@@ -76,7 +77,7 @@ const Home = () => {
 					<TouchableOpacity
 						onPress={DeleteCollection}
 						className="mt-5">
-						<Text className="text-center font-DMSans text-black text-xl">Delete Collection</Text>
+						<Text className="text-center font-DMSans text-black text-xl" style={{ fontSize: RFValue(18)}}>Delete Collection</Text>
 					</TouchableOpacity>
 				</View>
 			);

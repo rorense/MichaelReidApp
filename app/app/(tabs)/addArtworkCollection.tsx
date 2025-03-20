@@ -7,6 +7,7 @@ import { createArtworkCollection } from "@/lib/appwrite";
 import { router } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
 import AddCollectionHeader from "../components/AddCollectionHeader";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const AddArtworkCollection = () => {
 	const { user } = useGlobalContext();
@@ -57,7 +58,7 @@ const AddArtworkCollection = () => {
 			<SafeAreaView className="bg-background h-full ">
 				<View className="w-full justify-center items-center min-h-[65vh] flex">
 					<View className="justify-center min-h-[65vh] text-center">
-						<Text className="mt-10 text-center font-DMSans">Enter title of Collection</Text>
+						<Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14)}}>Enter title of Collection</Text>
 						<FormField
 							placeholder="Title of Collection"
 							otherStyles={"w-[85vw]"}

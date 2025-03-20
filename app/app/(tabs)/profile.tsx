@@ -7,6 +7,7 @@ import CustomButton from "../components/CustomButton";
 import { clearSessionOnStart, deleteUser, resetUserPassword } from "@/lib/appwrite";
 import { router } from "expo-router";
 import FormField from "../components/FormField";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const profile = () => {
 	const { user } = useGlobalContext();
@@ -57,12 +58,12 @@ const profile = () => {
 		<>
 			<Header />
 			<SafeAreaView className="flex-1 bg-background">
-				<Text className="text-center font-DMSans text-4xl">Profile</Text>
+				<Text className="text-center font-DMSans" style={{ fontSize: RFValue(32)}}>Profile</Text>
 				<View className="flex justify-center items-center mt-5">
-					<Text className="font-DMSans text-xl">Username: {user.username}</Text>
-					<Text className="font-DMSans text-xl">Email: {user.email}</Text>
+					<Text className="font-DMSans" style={{ fontSize: RFValue(18)}}>Username: {user.username}</Text>
+					<Text className="font-DMSans" style={{ fontSize: RFValue(18)}}>Email: {user.email}</Text>
 					<View className="w-[80vw] mt-20">
-						<Text className="font-DMSans text-2xl text-center my-2">Reset your password</Text>
+						<Text className="font-DMSans text-center my-2" style={{ fontSize: RFValue(20)}}>Reset your password</Text>
 						<FormField
 							title="Old Password"
 							placeholder="Old Password"

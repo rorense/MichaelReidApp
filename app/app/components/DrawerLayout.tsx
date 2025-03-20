@@ -4,6 +4,8 @@ import { Link, router, useNavigation } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { View, Text, TouchableOpacity, Alert, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { RFValue } from "react-native-responsive-fontsize";
+import { twMerge } from 'tailwind-merge';
 
 const DrawerContent = (props: any) => {
 	const handleSignOut = async () => {
@@ -26,12 +28,12 @@ const DrawerContent = (props: any) => {
 					/>
 					<TouchableOpacity onPress={() => {}}>
 						<Link href="/collection">
-							<Text className="text-3xl font-DMSans mt-5">SEE COLLECTION</Text>
+							<Text className={twMerge("font-DMSans mt-5")} style={{ fontSize: RFValue(24)}}>SEE COLLECTION</Text>
 						</Link>
 					</TouchableOpacity>
 					<TouchableOpacity onPress={() => {}}>
 						<Link href="/profile">
-							<Text className="text-3xl font-DMSans mt-5">PROFILE</Text>
+							<Text className={twMerge("font-DMSans mt-5")} style={{ fontSize: RFValue(24)}}>PROFILE</Text>
 						</Link>
 					</TouchableOpacity>
 				</View>
@@ -39,13 +41,13 @@ const DrawerContent = (props: any) => {
 					<TouchableOpacity
 						onPress={handleSignOut}
 						className="flex justify-center items-center">
-						<Text className="text-3xl font-DMSans ">SIGN OUT</Text>
+						<Text className={twMerge("font-DMSans mt-5")} style={{ fontSize: RFValue(24)}}>SIGN OUT</Text>
 					</TouchableOpacity>
 					<Link href="https://michaelreid.com.au/">
-						<Text className="text-center font-DMSans text-xl text-blue-500">Visit Website</Text>
+						<Text className={twMerge("text-center font-DMSans text-blue-500")} style={{ fontSize: RFValue(20)}}>Visit Website</Text>
 					</Link>
 					<Link href="https://michaelreid.com.au/privacy-policy-app/">
-						<Text className="text-center font-DMSans text-xl text-blue-500 mt-2">Privacy Policy</Text>
+						<Text className={twMerge("text-center font-DMSans text-blue-500")} style={{ fontSize: RFValue(20)}}>Privacy Policy</Text>
 					</Link>
 				</View>
 			</View>

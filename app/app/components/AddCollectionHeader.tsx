@@ -3,6 +3,8 @@ import React from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "expo-router";
 import { router } from "expo-router";
+import { RFValue } from "react-native-responsive-fontsize";
+import { twMerge } from 'tailwind-merge';
 
 interface AddCollectionHeaderProps {
 	title: string;
@@ -24,7 +26,7 @@ const AddCollectionHeader: React.FC<AddCollectionHeaderProps> = ({ title }) => {
 				</View>
 
 				<View className="w-1/2 justify-center items-center">
-					<Text className="font-DMSans text-[#7D1325] text-2xl">{title}</Text>
+					<Text className={twMerge("font-DMSans text-[#7D1325]")} style={{ fontSize: RFValue(20)}}>{title}</Text>
 				</View>
 				<View className="w-1/6"></View>
 			</View>

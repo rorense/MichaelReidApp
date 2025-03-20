@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "expo-router";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { clearSessionOnStart } from "@/lib/appwrite";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const OnboardingScreen = () => {
 	const [step, setStep] = useState(1);
@@ -61,19 +62,19 @@ const OnboardingScreen = () => {
 				{/* Text Content with Separated Lines */}
 				<View className="flex-1">
 					<Animated.View style={{ opacity: fadeAnim1 }}>
-						<Text className="text-primary font-DMSans text-2xl">Welcome to your</Text>
-						<Text className="text-primary font-DMSans text-2xl">art gallery</Text>
+						<Text className="text-primary font-DMSans" style={{ fontSize: RFValue(20)}}>Welcome to your</Text>
+						<Text className="text-primary font-DMSans" style={{ fontSize: RFValue(20)}}>art gallery</Text>
 					</Animated.View>
 
 					<Animated.View style={{ opacity: fadeAnim2, marginTop: 20 }}>
-						<Text className="text-primary font-DMSans text-2xl">Keep your art</Text>
-						<Text className="text-primary font-DMSans text-2xl">collection at hand</Text>
+						<Text className="text-primary font-DMSans" style={{ fontSize: RFValue(20)}}>Keep your art</Text>
+						<Text className="text-primary font-DMSans" style={{ fontSize: RFValue(20)}}>collection at hand</Text>
 					</Animated.View>
 
 					<Animated.View style={{ opacity: fadeAnim3, marginTop: 20 }}>
-						<Text className="text-primary font-DMSans text-2xl">Take photographs, or use</Text>
-						<Text className="text-primary font-DMSans text-2xl">images sent to you via email, to</Text>
-						<Text className="text-primary font-DMSans text-2xl">add artworks to your collection</Text>
+						<Text className="text-primary font-DMSans" style={{ fontSize: RFValue(20)}}>Take photographs, or use</Text>
+						<Text className="text-primary font-DMSans" style={{ fontSize: RFValue(20)}}>images sent to you via email, to</Text>
+						<Text className="text-primary font-DMSans" style={{ fontSize: RFValue(20)}}>add artworks to your collection</Text>
 					</Animated.View>
 				</View>
 
@@ -92,12 +93,12 @@ const OnboardingScreen = () => {
 							<Link
 								href="/sign-up"
 								className="w-[70%] bg-primary py-4 rounded-full items-center justify-center">
-								<Text className="text-white font-DMSans text-lg text-center">Sign Up</Text>
+								<Text className="text-white font-DMSans text-center" style={{ fontSize: RFValue(16)}}>Sign Up</Text>
 							</Link>
 							<Link
 								href="/sign-in"
 								className="w-[70%] border-2 border-primary py-4 rounded-full items-center justify-center">
-								<Text className="text-primary font-DMSans text-lg text-center">Login</Text>
+								<Text className="text-primary font-DMSans text-center" style={{ fontSize: RFValue(16)}}>Login</Text>
 							</Link>
 						</View>
 					)}
