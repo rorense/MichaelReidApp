@@ -25,6 +25,7 @@ const AddArt = () => {
 	const [uploading, setUploading] = useState(false);
 	const [form, setForm] = useState<{
 		title: string;
+        artist: string;
 		year: number | null;
 		price: number | null; 
 		edition: number | null; 
@@ -32,6 +33,7 @@ const AddArt = () => {
 		images: { name: string; mimeType: string; fileSize: number; uri: string } | null;
 	}>({
 		title: "",
+        artist: "",
 		year: null,
 		price: null, 
 		edition: null, 
@@ -130,8 +132,8 @@ const AddArt = () => {
 	};
 
 	const submit = async () => {
-		if (!form.title || form.year === null || form.price === null || form.edition === null || !form.dimensions || !form.images) {
-			return Alert.alert("Error", "Please fill all fields with valid values.");
+		if (!form.title || !form.images || !form.artist) {
+			return Alert.alert("Error", "Please fill required fields with valid values.");
 		}
 
 		setUploading(true);
@@ -151,6 +153,7 @@ const AddArt = () => {
 		} finally {
 			setForm({
 				title: "",
+                artist: "",
 				year: null,
 				price: null,
 				edition: null,
@@ -175,7 +178,7 @@ const AddArt = () => {
                             {/* Title */}
                             {step === 1 && (
                                 <View className="justify-center min-h-[65vh] text-center">
-                                    <Text className={twMerge("mt-10 text-center font-DMSans")} style={{ fontSize: RFValue(14) }}>Enter title of work</Text>
+                                    <Text className={twMerge("mt-10 text-center font-DMSans")} style={{ fontSize: RFValue(14) }}>Enter title of work (required)</Text>
                                     <FormField
                                         placeholder="Title of Work"
                                         otherStyles={"w-[85vw]"}
@@ -193,10 +196,36 @@ const AddArt = () => {
                                 </View>
                             )}
 
-                            {/* Year */}
+                            {/* Artist */}
                             {step === 2 && (
                                 <View className="justify-center min-h-[65vh] text-center">
-                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter year of work</Text>
+                                    <Text className={twMerge("mt-10 text-center font-DMSans")} style={{ fontSize: RFValue(14) }}>Enter the artist (required)</Text>
+                                    <FormField
+                                        placeholder="Name of Artist"
+                                        otherStyles={"w-[85vw]"}
+                                        value={form.artist}
+                                        handleChangeText={(e: any) => setForm({ ...form, artist: e })}
+                                    />
+                                    <View>
+                                        <CustomButton
+                                            title="Back"
+                                            handlePress={prevStep}
+                                            isLoading={false}
+                                        />
+                                        <CustomButton
+                                            title="Next"
+                                            handlePress={nextStep}
+                                            isLoading={false}
+                                            color="brown"
+                                        />
+                                    </View>
+                                </View>
+                            )}
+
+                            {/* Year */}
+                            {step === 3 && (
+                                <View className="justify-center min-h-[65vh] text-center">
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter year of work (required)</Text>
                                     <FormField
                                         placeholder="Year of Work"
                                         otherStyles={"w-[85vw]"}
@@ -220,7 +249,7 @@ const AddArt = () => {
                                 </View>
                             )}
                             {/* Dimensions */}
-                            {step === 3 && (
+                            {step === 4 && (
                                 <View className="justify-center min-h-[65vh] text-center">
                                     <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Artwork Dimensions</Text>
                                     <FormField
@@ -245,7 +274,7 @@ const AddArt = () => {
                                 </View>
                             )}
                             {/* Price */}
-                            {step === 4 && (
+                            {step === 5 && (
                                 <View className="justify-center min-h-[65vh] text-center">
                                     <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter Price</Text>
                                     <FormField
@@ -271,7 +300,7 @@ const AddArt = () => {
                                 </View>
                             )}
                             {/* Edition/More */}
-                            {step === 5 && (
+                            {step === 6 && (
                                 <View className="justify-center min-h-[65vh] text-center">
                                     <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Edition/More</Text>
                                     <FormField
@@ -297,7 +326,7 @@ const AddArt = () => {
                                 </View>
                             )}
                             {/* Pictures */}
-                            {step === 6 && (
+                            {step === 7 && (
                                 <View className="justify-center min-h-[65vh] text-center w-[85vw]">
                                     <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Pictures</Text>
                                     <TouchableOpacity onPress={() => openPicker()}>

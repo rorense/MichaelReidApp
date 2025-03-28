@@ -133,6 +133,7 @@ export const createArtwork = async (form) => {
 		const image = await uploadFile(form.images);
 		const newArtwork = await databases.createDocument(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, ID.unique(), {
 			title: form.title,
+			artist: form.artist,
 			year: form.year,
 			price: form.price,
 			edition: form.edition,

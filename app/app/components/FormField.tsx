@@ -22,7 +22,7 @@ const FormField: React.FC<FormFieldProps> = ({ title, value, placeholder, handle
 			<View className="w-full border-b-[1px] h-16 px-4 items-center flex-row">
 				<TextInput
 					className={twMerge("flex-1 font-DMSans")}
-					style={{ fontSize: RFValue(18)}}
+					style={{ fontSize: RFValue(14)}}
 					value={value}
 					placeholder={placeholder}
 					onChangeText={handleChangeText}

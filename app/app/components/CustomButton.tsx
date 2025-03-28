@@ -1,5 +1,6 @@
 import { View, Text, Button, TouchableOpacity, ActivityIndicator } from "react-native";
 import React from "react";
+import { RFValue } from "react-native-responsive-fontsize";
 
 interface CustomButtonProps {
 	title: string;
@@ -22,7 +23,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, handlePress, isLoadi
 					color="white"
 				/>
 			) : (
-				<Text className={`font-DMSans ${color == "brown" ? "color-white" : "color-black"}`}>{title}</Text>
+				<Text className={`font-DMSans ${color == "brown" ? "color-white" : "color-black"}`} style={{fontSize: RFValue(16)}}>{title}</Text>
 			)}
 		</TouchableOpacity>
 	);

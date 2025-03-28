@@ -11,7 +11,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 type ArtworkPageRouteProp = RouteProp<RootStackParamList, "artworkpage">;
 
 const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
-	const { imageUrl, title, dimensions, year, edition, price, $id, artworkCollectionId } = useLocalSearchParams();
+	const { imageUrl, title, artist, dimensions, year, edition, price, $id, artworkCollectionId } = useLocalSearchParams();
 	const navigation = useNavigation();
 	const [loading, setLoading] = useState(true);
 
@@ -38,6 +38,8 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 		}
 	};
 
+	console.log("Year", year)
+	console.log("Edition", edition)
 	return (
 		<>
 			<ArtWorkHeader title={title} />
@@ -60,15 +62,39 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 					/>
 				)}
 				<View className="mt-10 mb-10">
-					<Text className="font-semibold font-DMSans text-black text-center" style={{ fontSize: RFValue(24)}}>{title}</Text>
-					<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18)}}>Year: {year}</Text>
+					{title !== "null" && (
+						<Text className="font-semibold font-DMSans text-black text-center" style={{ fontSize: RFValue(24) }}>
+							{title}
+						</Text>
+					)}
+					{artist !== "null" && (
+						<Text className="font-semibold font-DMSans text-black text-center" style={{ fontSize: RFValue(18) }}>
+							{artist}
+						</Text>
+					)}
+					{year !== "null" && (
+						<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18) }}>
+							Year: {year}
+						</Text>
+					)}
 				</View>
-				<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18)}}>Edition: {edition}</Text>
-				<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18)}}>Dimensions: {dimensions}</Text>
-				<View className="mt-5">
-					<Text className="font-semibold font-DMSans text-[#7D1325] text-center" style={{ fontSize: RFValue(20)}}>${price}</Text>
-				</View>
-
+				{edition !== "null" && (
+					<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18) }}>
+						Edition: {edition}
+					</Text>
+				)}
+				{dimensions && dimensions !== "null" && (
+					<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18) }}>
+						Dimensions: {dimensions}
+					</Text>
+				)}
+				{price !== "null" && (
+					<View className="mt-5">
+						<Text className="font-semibold font-DMSans text-[#7D1325] text-center" style={{ fontSize: RFValue(20) }}>
+							${price}
+						</Text>
+					</View>
+				)}
 				<View>
 					<TouchableOpacity
 						onPress={deleteArt}

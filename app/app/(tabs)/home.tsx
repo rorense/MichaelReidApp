@@ -69,7 +69,7 @@ const Home = () => {
 					{artworks && artworks.length === 0 && <EmptyState />}
 					<TouchableOpacity className="bg-primary rounded-full py-4 flex w-[50vw] justify-center items-center mx-auto mt-12">
 						<Text
-							className="text-center font-DMSans text-white" style={{ fontSize: RFValue(20)}}
+							className="text-center font-DMSans text-white" style={{ fontSize: RFValue(18)}}
 							onPress={() => navigation.navigate("addArt", { artworkCollectionId })}>
 							Add Artwork
 						</Text>
