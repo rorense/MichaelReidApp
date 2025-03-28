@@ -199,7 +199,7 @@ const AddArt = () => {
                             {/* Artist */}
                             {step === 2 && (
                                 <View className="justify-center min-h-[65vh] text-center">
-                                    <Text className={twMerge("mt-10 text-center font-DMSans")} style={{ fontSize: RFValue(14) }}>Enter the artist (required)</Text>
+                                    <Text className={twMerge("mt-10 text-center font-DMSans")} style={{ fontSize: RFValue(14) }}>Enter the artist name (required)</Text>
                                     <FormField
                                         placeholder="Name of Artist"
                                         otherStyles={"w-[85vw]"}

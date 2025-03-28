@@ -23,7 +23,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, handlePress, isLoadi
 					color="white"
 				/>
 			) : (
-				<Text className={`font-DMSans ${color == "brown" ? "color-white" : "color-black"}`} style={{fontSize: RFValue(16)}}>{title}</Text>
+				<Text className={`font-DMSans ${color == "brown" ? "color-white" : "color-black"}`} style={{fontSize: RFValue(14)}}>{title}</Text>
 			)}
 		</TouchableOpacity>
 	);
