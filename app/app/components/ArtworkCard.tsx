@@ -26,7 +26,7 @@ const ArtworkCard = ({ artwork }: { artwork: any }) => {
 					<View className="m-3 p-3 bg-[#7D1325]">
 						<Text className={twMerge("text-white font-bold font-DMSans")} style={{ fontSize: RFValue(16)}}>{title}</Text>
 						<Text className={twMerge("text-white font-DMSans")} style={{ fontSize: RFValue(14)}}>
-							{year} | {dimensions}
+							{year} | {artist !== "null" && (<Text>{artist}</Text>)}
 						</Text>
 					</View>
 				</ImageBackground>

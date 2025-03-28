@@ -63,28 +63,28 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 				)}
 				<View className="mt-10 mb-10">
 					{title !== "null" && (
-						<Text className="font-semibold font-DMSans text-black text-center" style={{ fontSize: RFValue(24) }}>
+						<Text className="font-semibold font-DMSans text-[#7D1325] text-center italic" style={{ fontSize: RFValue(24) }}>
 							{title}
 						</Text>
 					)}
 					{artist !== "null" && (
-						<Text className="font-semibold font-DMSans text-black text-center" style={{ fontSize: RFValue(18) }}>
+						<Text className="font-semibold font-DMSans text-black text-center" style={{ fontSize: RFValue(16) }}>
 							{artist}
 						</Text>
 					)}
 					{year !== "null" && (
-						<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18) }}>
-							Year: {year}
+						<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(16) }}>
+							{year}
 						</Text>
 					)}
 				</View>
 				{edition !== "null" && (
-					<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18) }}>
+					<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(16) }}>
 						Edition: {edition}
 					</Text>
 				)}
 				{dimensions && dimensions !== "null" && (
-					<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(18) }}>
+					<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(16) }}>
 						Dimensions: {dimensions}
 					</Text>
 				)}

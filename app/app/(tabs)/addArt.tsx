@@ -251,7 +251,7 @@ const AddArt = () => {
                             {/* Dimensions */}
                             {step === 4 && (
                                 <View className="justify-center min-h-[65vh] text-center">
-                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Artwork Dimensions</Text>
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Artwork Dimensions (optional)</Text>
                                     <FormField
                                         placeholder="Dimensions"
                                         otherStyles={"w-[85vw]"}
@@ -276,7 +276,7 @@ const AddArt = () => {
                             {/* Price */}
                             {step === 5 && (
                                 <View className="justify-center min-h-[65vh] text-center">
-                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter Price</Text>
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter Price (optional)</Text>
                                     <FormField
                                         placeholder="Enter Price"
                                         otherStyles={"w-[85vw]"}
@@ -302,7 +302,7 @@ const AddArt = () => {
                             {/* Edition/More */}
                             {step === 6 && (
                                 <View className="justify-center min-h-[65vh] text-center">
-                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Edition/More</Text>
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Edition (optional)</Text>
                                     <FormField
                                         placeholder="Edition"
                                         otherStyles={"w-[85vw]"}
@@ -328,7 +328,7 @@ const AddArt = () => {
                             {/* Pictures */}
                             {step === 7 && (
                                 <View className="justify-center min-h-[65vh] text-center w-[85vw]">
-                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Pictures</Text>
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Pictures (required)</Text>
                                     <TouchableOpacity onPress={() => openPicker()}>
                                         {form.images ? (
                                             <Image
