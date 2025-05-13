@@ -30,6 +30,7 @@ const AddArt = () => {
 		price: number | null; 
 		edition: number | null; 
 		dimensions: string;
+        medium: string;
 		images: { name: string; mimeType: string; fileSize: number; uri: string } | null;
 	}>({
 		title: "",
@@ -38,10 +39,9 @@ const AddArt = () => {
 		price: null, 
 		edition: null, 
 		dimensions: "",
+        medium: "",
 		images: null,
 	});
-
-	// ...existing code...
 
 	const openPicker = async () => {
 		const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -157,6 +157,7 @@ const AddArt = () => {
 				year: null,
 				price: null,
 				edition: null,
+                medium: "",
 				dimensions: "",
 				images: null,
 			});
@@ -273,8 +274,33 @@ const AddArt = () => {
                                     </View>
                                 </View>
                             )}
-                            {/* Price */}
+                            {/* Artwork Medium */}
                             {step === 5 && (
+                                <View className="justify-center min-h-[65vh] text-center">
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Artwork Medium (optional)</Text>
+                                    <FormField
+                                        placeholder="Artwork Medium"
+                                        otherStyles={"w-[85vw]"}
+                                        value={form.medium}
+                                        handleChangeText={(e: any) => setForm({ ...form, medium: e })}
+                                    />
+                                    <View>
+                                        <CustomButton
+                                            title="Back"
+                                            handlePress={prevStep}
+                                            isLoading={false}
+                                        />
+                                        <CustomButton
+                                            title="Next"
+                                            handlePress={nextStep}
+                                            isLoading={false}
+                                            color="brown"
+                                        />
+                                    </View>
+                                </View>
+                            )}
+                            {/* Price */}
+                            {step === 6 && (
                                 <View className="justify-center min-h-[65vh] text-center">
                                     <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Enter Price (optional)</Text>
                                     <FormField
@@ -300,7 +326,7 @@ const AddArt = () => {
                                 </View>
                             )}
                             {/* Edition/More */}
-                            {step === 6 && (
+                            {step === 7 && (
                                 <View className="justify-center min-h-[65vh] text-center">
                                     <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Edition (optional)</Text>
                                     <FormField
@@ -326,7 +352,7 @@ const AddArt = () => {
                                 </View>
                             )}
                             {/* Pictures */}
-                            {step === 7 && (
+                            {step === 8 && (
                                 <View className="justify-center min-h-[65vh] text-center w-[85vw]">
                                     <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Pictures (required)</Text>
                                     <TouchableOpacity onPress={() => openPicker()}>

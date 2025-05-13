@@ -138,11 +138,12 @@ export const createArtwork = async (form) => {
 			price: form.price,
 			edition: form.edition,
 			dimensions: form.dimensions,
+			medium: form.medium,
 			images: image,
 			users: form.userId,
 			artworkCollection: form.artworkCollection,
 		});
-		return newArtwork;
+		return newArtwork;  
 	} catch (error) {
 		console.error("Error in createArtwork:", error);
 		throw new Error("Failed Creating Artwork Error", error);
@@ -230,3 +231,21 @@ export const resetUserPassword = async (oldPassword, newPassword) => {
 		throw new Error(error);
 	}
 };
+
+export const editArtwork = async (artworkId, form) => {
+	try {
+		const updatedArtwork = await databases.updateDocument(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, artworkId, {
+			title: form.title,
+			artist: form.artist,
+			year: form.year,
+			price: form.price,
+			edition: form.edition,
+			dimensions: form.dimensions,
+			medium: form.medium,
+			images: form.images,
+		});
+		return updatedArtwork;
+	} catch (error) {
+		throw new Error(error);
+	}
+}

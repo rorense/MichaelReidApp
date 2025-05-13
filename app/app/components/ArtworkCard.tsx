@@ -11,14 +11,14 @@ type ArtworkCardNavigationProp = StackNavigationProp<RootStackParamList, "artwor
 
 const ArtworkCard = ({ artwork }: { artwork: any }) => {
 	const navigation = useNavigation<ArtworkCardNavigationProp>();
-	const { title, artist, year, price, edition, dimensions, images, $id } = artwork;
+	const { title, artist, year, price, edition, dimensions, images, $id, medium } = artwork;
 
 	// Ensure images is a valid URL
 	const imageUrl = Array.isArray(images) ? images[0] : images; // Get first image if it's an array
 	return (
 		<TouchableOpacity
 			className="w-[11/12] mb-5 self-center"
-			onPress={() => navigation.navigate("artworkpage", { imageUrl, title, artist, dimensions, year, edition, price, $id })}>
+			onPress={() => navigation.navigate("artworkpage", { imageUrl, title, artist, dimensions, year, edition, price, $id, medium })}>
 			{imageUrl ? (
 				<ImageBackground
 					source={{ uri: imageUrl }}

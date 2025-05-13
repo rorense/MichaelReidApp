@@ -11,7 +11,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 type ArtworkPageRouteProp = RouteProp<RootStackParamList, "artworkpage">;
 
 const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
-	const { imageUrl, title, artist, dimensions, year, edition, price, $id, artworkCollectionId } = useLocalSearchParams();
+	const { imageUrl, title, artist, dimensions, year, edition, price, $id, artworkCollectionId, medium } = useLocalSearchParams();
 	const navigation = useNavigation();
 	const [loading, setLoading] = useState(true);
 
@@ -54,11 +54,19 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 		);
 	};
 
-	console.log("Year", year)
-	console.log("Edition", edition)
 	return (
 		<>
-			<ArtWorkHeader title={title} />
+			<ArtWorkHeader  
+				title={title} 
+				artist={artist} 
+				year={year} 
+				edition={edition} 
+				dimensions={dimensions} 
+				medium={medium} 
+				price={price}
+				id={$id}
+				artworkCollectionId={artworkCollectionId}  
+			/>
 			<SafeAreaView className="bg-background pt-10 h-full">
 				{loading && (
 					<View className="flex justify-center items-center">
@@ -102,6 +110,11 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 				{dimensions && dimensions !== "null" && (
 					<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(16) }}>
 						Dimensions: {dimensions}
+					</Text>
+				)}
+				{medium && medium !== "null" && (
+					<Text className="font-DMSans text-black text-center" style={{ fontSize: RFValue(16) }}>
+						Artwork Medium: {medium}
 					</Text>
 				)}
 				{price !== "null" && (
