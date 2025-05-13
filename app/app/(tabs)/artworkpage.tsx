@@ -29,13 +29,29 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
 	);
 
 	const deleteArt = async () => {
-		try {
-			await deleteArtwork($id);
-			Alert.alert("Success", "Artwork deleted successfully");
-			router.push("/collection"); // Navigate back to the home page for that collection
-		} catch (error) {
-			Alert.alert("Error", "Failed to delete artwork. Please try again.");
-		}
+		Alert.alert(
+			"Confirm Deletion",
+			"Are you sure you want to delete this artwork? This action is irreversible.",
+			[
+				{
+					text: "Cancel",
+					style: "cancel",
+				},
+				{
+					text: "Delete",
+					style: "destructive",
+					onPress: async () => {
+						try {
+							await deleteArtwork($id);
+							Alert.alert("Success", "Artwork deleted successfully");
+							router.push("/collection"); // Navigate back to the home page for that collection
+						} catch (error) {
+							Alert.alert("Error", "Failed to delete artwork. Please try again.");
+						}
+					},
+				},
+			]
+		);
 	};
 
 	console.log("Year", year)

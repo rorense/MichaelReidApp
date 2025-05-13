@@ -48,7 +48,7 @@ const SignUpPage = () => {
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View className="w-full justify-center min-h-[85vh] px-4 my-6">
-            <Text className="text-primary text-center font-DMSans" style={{ fontSize: RFValue(24) }}>Sign Up to Michael Reids Gallery</Text>
+            <Text className="text-primary text-center font-DMSans" style={{ fontSize: RFValue(24) }}>Sign Up to Michael Reid Gallery</Text>
             <FormField
               title="Username"
               value={form.username}

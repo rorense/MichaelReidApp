@@ -49,13 +49,29 @@ const Home = () => {
 	);
 
 	const DeleteCollection = async () => {
-		try {
-			await deleteArtworkCollection(artworkCollectionId);
-			Alert.alert("Success", "Collection deleted successfully");
-			navigation.navigate("collection");
-		} catch (error) {
-			throw new Error(error);
-		}
+		Alert.alert(
+			"Confirm Deletion",
+			"Are you sure you want to delete this collection? This action is irreversible.",
+			[
+				{
+					text: "Cancel",
+					style: "cancel",
+				},
+				{
+					text: "Delete",
+					style: "destructive",
+					onPress: async () => {
+						try {
+							await deleteArtworkCollection(artworkCollectionId);
+							Alert.alert("Success", "Collection deleted successfully");
+							navigation.navigate("collection");
+						} catch (error) {
+							Alert.alert("Error", "Failed to delete collection. Please try again.");
+						}
+					},
+				},
+			]
+		);
 	};
 
 	const navigateToArtworkPage = (item) => {

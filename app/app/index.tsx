@@ -98,7 +98,7 @@ const OnboardingScreen = () => {
 							<Link
 								href="/sign-in"
 								className="w-[70%] border-2 border-primary py-4 rounded-full items-center justify-center">
-								<Text className="text-primary font-DMSans text-center" style={{ fontSize: RFValue(16)}}>Login</Text>
+								<Text className="text-primary font-DMSans text-center" style={{ fontSize: RFValue(16)}}>Log In</Text>
 							</Link>
 						</View>
 					)}
