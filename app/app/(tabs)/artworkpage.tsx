@@ -151,11 +151,11 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
             className="mt-5">
             <Text className="font-DMSans text-center text-red-800" style={{ fontSize: RFValue(14)}}>Delete Artwork</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={shareArtwork}
             className="mt-5">
             <Text className="font-DMSans text-center text-blue-800" style={{ fontSize: RFValue(14)}}>Share Artwork</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </SafeAreaView>
     </>
