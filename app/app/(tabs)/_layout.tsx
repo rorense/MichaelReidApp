@@ -4,6 +4,7 @@ import DrawerLayout from "../components/DrawerLayout";
 import ArtworkPage from "./artworkpage";
 import Collection from "./collection";
 import { createStackNavigator } from "@react-navigation/stack";
+import Search from "./[query]";
 
 const TabsLayout = () => {
 	const Stack = createStackNavigator();
@@ -21,6 +22,10 @@ const TabsLayout = () => {
 					name="collection"
 					component={Collection}
 				/>
+				<Stack.Screen
+					name="(search)/[query]"
+					component={Search}
+					/>
 			</Stack.Navigator>
 		</DrawerLayout>
 	);

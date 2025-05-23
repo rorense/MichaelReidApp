@@ -249,3 +249,16 @@ export const editArtwork = async (artworkId, form) => {
 		throw new Error(error);
 	}
 }
+
+export const searchArtworks = async (query, userId) => {
+	try {
+		const artworks = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, [
+			Query.search("title", query),
+			Query.search("artist", query),
+			Query.equal("users", userId),
+		]);
+		return artworks.documents;
+	} catch (error) {
+		throw new Error(error);
+	}
+}

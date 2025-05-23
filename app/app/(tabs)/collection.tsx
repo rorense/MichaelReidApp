@@ -8,6 +8,7 @@ import CollectionCard from "../components/CollectionCard";
 import { useFocusEffect } from "@react-navigation/native";
 import Header from "../components/Header";
 import { RFValue } from "react-native-responsive-fontsize";
+import SearchInput from "../components/SearchInput";
 
 const Collection = () => {
 	const { user } = useGlobalContext();
