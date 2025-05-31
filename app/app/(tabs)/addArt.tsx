@@ -354,7 +354,7 @@ const AddArt = () => {
                             {/* Pictures */}
                             {step === 8 && (
                                 <View className="justify-center min-h-[65vh] text-center w-[85vw]">
-                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Pictures (required)</Text>
+                                    <Text className="mt-10 text-center font-DMSans" style={{ fontSize: RFValue(14) }}>Picture (required)</Text>
                                     <TouchableOpacity onPress={() => openPicker()}>
                                         {form.images ? (
                                             <Image

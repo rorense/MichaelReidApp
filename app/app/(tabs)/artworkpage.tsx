@@ -7,6 +7,8 @@ import ArtWorkHeader from "../components/ArtWorkHeader";
 import { deleteArtwork } from "@/lib/appwrite";
 import { useFocusEffect } from "@react-navigation/native";
 import { RFValue } from "react-native-responsive-fontsize";
+import * as Print from "expo-print";
+import * as Sharing from "expo-sharing";
 
 type ArtworkPageRouteProp = RouteProp<RootStackParamList, "artworkpage">;
 
@@ -54,24 +56,36 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
     );
   };
 
-  const shareArtwork = async () => {
+  // Generate PDF with artwork details and share it
+  const exportAndSharePDF = async () => {
     try {
-      const message = `Check out this artwork:
-			Title: ${title}
-			Artist: ${artist}
-			Year: ${year}
-			Medium: ${medium}
-			Price: ${price ? `$${price}` : "N/A"}
-			Dimensions: ${dimensions || "N/A"}
-
-			View more in the Michael Reid Gallery App!`;
-
-      await Share.share({
-        message,
-        url: typeof imageUrl === "string" ? imageUrl : undefined, // Include the image URL if available
-      });
+      // Sanitize title for filename (remove special characters and spaces)
+      const safeTitle = (title && title !== "null" ? String(title).replace(/[^a-z0-9]/gi, "_").toLowerCase() : "artwork");
+      const html = `
+        <html>
+          <body style="font-family: Arial, sans-serif; padding: 0; margin: 0; height: 100vh;">
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh;">
+              ${typeof imageUrl === "string" ? `<img src="${imageUrl}" style="width: 100%; max-width: 400px; display: block; margin: 24px auto;" />` : ""}
+              ${title && title !== "null" ? `<h2 style="color: #7D1325; text-align: center;">${title}</h2>` : ""}
+              ${artist && artist !== "null" ? `<p style="text-align: center;"><strong>Artist:</strong> ${artist}</p>` : ""}
+              ${year && year !== "null" ? `<p style="text-align: center;"><strong>Year:</strong> ${year}</p>` : ""}
+              ${edition && edition !== "null" ? `<p style="text-align: center;"><strong>Edition:</strong> ${edition}</p>` : ""}
+              ${dimensions && dimensions !== "null" ? `<p style="text-align: center;"><strong>Dimensions:</strong> ${dimensions}</p>` : ""}
+              ${medium && medium !== "null" ? `<p style="text-align: center;"><strong>Medium:</strong> ${medium}</p>` : ""}
+              ${price && price !== "null" ? `<p style="text-align: center;"><strong>Price:</strong> $${price}</p>` : ""}
+              <p style="text-align: center; margin-top: 32px;">
+                <a href="https://apps.apple.com/au/app/michael-reid-gallery/id1425945967" style="color: #7D1325; text-decoration: underline;">
+                  Create your own Gallery in the Michael Reid Gallery App!
+                </a>
+              </p>
+            </div>
+          </body>
+        </html>
+      `;
+      const { uri } = await Print.printToFileAsync({ html, fileName: safeTitle });
+      await Sharing.shareAsync(uri, { mimeType: "application/pdf" });
     } catch (error) {
-      Alert.alert("Error", "Failed to share artwork. Please try again.");
+      Alert.alert("Error", "Failed to export or share PDF. Please try again.");
     }
   };
 
@@ -151,11 +165,11 @@ const ArtworkPage = ({ route }: { route: ArtworkPageRouteProp }) => {
             className="mt-5">
             <Text className="font-DMSans text-center text-red-800" style={{ fontSize: RFValue(14)}}>Delete Artwork</Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity
-            onPress={shareArtwork}
+          <TouchableOpacity
+            onPress={exportAndSharePDF}
             className="mt-5">
             <Text className="font-DMSans text-center text-blue-800" style={{ fontSize: RFValue(14)}}>Share Artwork</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </>

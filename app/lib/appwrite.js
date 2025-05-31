@@ -252,13 +252,60 @@ export const editArtwork = async (artworkId, form) => {
 
 export const searchArtworks = async (query, userId) => {
 	try {
-		const artworks = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, [
-			Query.search("title", query),
-			Query.search("artist", query),
-			Query.equal("users", userId),
-		]);
-		return artworks.documents;
+		// Search by title
+		const byTitle = await databases.listDocuments(
+			appwriteConfig.databaseId,
+			appwriteConfig.galleryCollectionId,
+			[
+				Query.search("title", query),
+				Query.equal("users", userId),
+			]
+		);
+
+		// Search by artist
+		const byArtist = await databases.listDocuments(
+			appwriteConfig.databaseId,
+			appwriteConfig.galleryCollectionId,
+			[
+				Query.search("artist", query),
+				Query.equal("users", userId),
+			]
+		);
+
+		// Merge and deduplicate results by $id
+		const allDocs = [...byTitle.documents, ...byArtist.documents];
+		const uniqueDocs = [];
+		const seenIds = new Set();
+		for (const doc of allDocs) {
+			if (!seenIds.has(doc.$id)) {
+				uniqueDocs.push(doc);
+				seenIds.add(doc.$id);
+			}
+		}
+		return uniqueDocs;
 	} catch (error) {
 		throw new Error(error);
 	}
 }
+
+// Send password reset email
+export const sendPasswordResetEmail = async (email, url) => {
+	try {
+		// url is required by Appwrite Cloud, but you won't use it in code-based reset.
+		// Use "http://localhost" or any allowed URL.
+		const response = await account.createRecovery(email, url);
+		return response;
+	} catch (error) {
+		throw new Error(error.message || "Failed to send password reset email");
+	}
+};
+
+// Complete password reset with token
+export const updatePasswordWithToken = async (userId, secret, newPassword, confirmPassword) => {
+	try {
+		const response = await account.updateRecovery(userId, secret, newPassword, confirmPassword);
+		return response;
+	} catch (error) {
+		throw new Error(error.message || "Failed to reset password");
+	}
+};
