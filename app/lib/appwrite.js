@@ -221,17 +221,6 @@ export const deleteUser = async (userId, accountId) => {
 	}
 };
 
-
-export const resetUserPassword = async (oldPassword, newPassword) => {
-	try {
-		const updatedPassword = await account.updatePassword(newPassword, oldPassword);
-		console.log("New password: ", updatedPassword);
-		return updatedPassword;
-	} catch (error) {
-		throw new Error(error);
-	}
-};
-
 export const editArtwork = async (artworkId, form) => {
 	try {
 		const updatedArtwork = await databases.updateDocument(appwriteConfig.databaseId, appwriteConfig.galleryCollectionId, artworkId, {
@@ -288,24 +277,12 @@ export const searchArtworks = async (query, userId) => {
 	}
 }
 
-// Send password reset email
-export const sendPasswordResetEmail = async (email, url) => {
+export const sendPasswordResetEmail = async (email) => {
 	try {
-		// url is required by Appwrite Cloud, but you won't use it in code-based reset.
-		// Use "http://localhost" or any allowed URL.
-		const response = await account.createRecovery(email, url);
+		// url must be an allowed domain in Appwrite project settings
+		const response = await account.createRecovery(email, "https://michaelreid.com.au/reset-password/");
 		return response;
 	} catch (error) {
 		throw new Error(error.message || "Failed to send password reset email");
-	}
-};
-
-// Complete password reset with token
-export const updatePasswordWithToken = async (userId, secret, newPassword, confirmPassword) => {
-	try {
-		const response = await account.updateRecovery(userId, secret, newPassword, confirmPassword);
-		return response;
-	} catch (error) {
-		throw new Error(error.message || "Failed to reset password");
 	}
 };

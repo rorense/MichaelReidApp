@@ -1,13 +1,12 @@
-import { View, Text, ScrollView, Alert, KeyboardAvoidingView, Platform } from "react-native";
+import { View, Text, ScrollView, Alert, KeyboardAvoidingView, Platform, Linking, Modal, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "../components/FormField";
 import CustomButton from "../components/CustomButton";
 import { Link, router } from "expo-router";
-import { getCurrentUser, SignIn, sendPasswordResetEmail, updatePasswordWithToken } from "@/lib/appwrite";
+import { getCurrentUser, SignIn, sendPasswordResetEmail } from "@/lib/appwrite";
 import { useGlobalContext } from "@/context/GlobalProvider";
 import { RFValue } from "react-native-responsive-fontsize";
-import { Modal, TouchableOpacity } from "react-native";
 
 const SignInPage = () => {
   const [form, setForm] = useState({
@@ -20,11 +19,6 @@ const SignInPage = () => {
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
   const [resetLoading, setResetLoading] = useState(false);
-  const [resetStep, setResetStep] = useState(1);
-  const [resetCode, setResetCode] = useState("");
-  const [resetUserId, setResetUserId] = useState("");
-  const [resetNewPassword, setResetNewPassword] = useState("");
-  const [resetConfirmPassword, setResetConfirmPassword] = useState("");
 
   const submit = async () => {
     if (form.email === "" || form.password === "") {
@@ -56,41 +50,16 @@ const SignInPage = () => {
     }
     setResetLoading(true);
     try {
-      // Use a safe allowed URL (Appwrite Cloud requires a valid URL, but you won't use it)
-      const response = await sendPasswordResetEmail(resetEmail, "https://localhost");
-      // Save userId for next step
-      setResetUserId(response.userId);
-      setResetStep(2);
-      Alert.alert("Success", "A reset code has been sent to your email. Please enter it below.");
+      // Use an allowed domain for Appwrite Cloud
+      await sendPasswordResetEmail(resetEmail);
+      Alert.alert(
+        "Success",
+        "If your email is registered, you will receive a password reset email with a link to reset your password."
+      );
+      setShowResetModal(false);
+      setResetEmail("");
     } catch (error) {
       Alert.alert("Error", error.message || "Failed to send reset email");
-    } finally {
-      setResetLoading(false);
-    }
-  };
-
-  const handlePasswordResetConfirm = async () => {
-    if (!resetCode || !resetNewPassword || !resetConfirmPassword) {
-      Alert.alert("Error", "Please fill in all fields");
-      return;
-    }
-    if (resetNewPassword !== resetConfirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
-      return;
-    }
-    setResetLoading(true);
-    try {
-      await updatePasswordWithToken(resetUserId, resetCode, resetNewPassword, resetConfirmPassword);
-      Alert.alert("Success", "Password reset successfully. Please log in.");
-      setShowResetModal(false);
-      setResetStep(1);
-      setResetEmail("");
-      setResetCode("");
-      setResetUserId("");
-      setResetNewPassword("");
-      setResetConfirmPassword("");
-    } catch (error) {
-      Alert.alert("Error", error.message || "Failed to reset password");
     } finally {
       setResetLoading(false);
     }
@@ -105,89 +74,37 @@ const SignInPage = () => {
         animationType="slide"
         onRequestClose={() => {
           setShowResetModal(false);
-          setResetStep(1);
           setResetEmail("");
-          setResetCode("");
-          setResetUserId("");
-          setResetNewPassword("");
-          setResetConfirmPassword("");
         }}
       >
         <View className="flex-1 bg-black/60 justify-center items-center">
           <View className="bg-white px-8 py-10 rounded-2xl w-[92vw] max-w-xl items-center shadow-lg">
-            {resetStep === 1 ? (
-              <>
-                <Text className="font-DMSans text-center text-2xl mb-4">Reset Password</Text>
-                <FormField
-                  title="Email"
-                  value={resetEmail}
-                  handleChangeText={setResetEmail}
-                  otherStyles="w-full mb-6"
-                  placeholder="Enter your email"
-                />
-                <CustomButton
-                  title="Send Reset Code"
-                  handlePress={handlePasswordResetRequest}
-                  isLoading={resetLoading}
-                  color="brown"
-                />
-                <TouchableOpacity
-                  onPress={() => {
-                    setShowResetModal(false);
-                    setResetStep(1);
-                    setResetEmail("");
-                  }}
-                  className="mt-5"
-                >
-                  <Text className="text-center text-red-700 font-DMSans text-base">Cancel</Text>
-                </TouchableOpacity>
-              </>
-            ) : (
-              <>
-                <Text className="font-DMSans text-center text-2xl mb-4">Enter Reset Code & New Password</Text>
-                <FormField
-                  title="Reset Code"
-                  value={resetCode}
-                  handleChangeText={setResetCode}
-                  otherStyles="w-full mb-4"
-                  placeholder="Reset code from email"
-                />
-                <FormField
-                  title="New Password"
-                  value={resetNewPassword}
-                  handleChangeText={setResetNewPassword}
-                  otherStyles="w-full mb-4"
-                  placeholder="New password"
-                />
-                <FormField
-                  title="Confirm New Password"
-                  value={resetConfirmPassword}
-                  handleChangeText={setResetConfirmPassword}
-                  otherStyles="w-full mb-6"
-                  placeholder="Confirm new password"
-                />
-                <CustomButton
-                  title="Reset Password"
-                  handlePress={handlePasswordResetConfirm}
-                  isLoading={resetLoading}
-                  color="brown"
-                />
-                <TouchableOpacity
-                  onPress={() => {
-                    setShowResetModal(false);
-                    setResetStep(1);
-                    setResetEmail("");
-                    setResetCode("");
-                    setResetUserId("");
-                    setResetNewPassword("");
-                    setResetConfirmPassword("");
-                  }}
-                  className="mt-5"
-                >
-                  <Text className="text-center text-red-700 font-DMSans text-base">Cancel</Text>
-                </TouchableOpacity>
-              </>
-            )}
+            <Text className="font-DMSans text-center text-2xl mb-4">Reset Password</Text>
+            <Text className="font-DMSans text-center mb-4 text-base">
+              Enter your email address and we'll send you a link to reset your password.
+            </Text>
+            <FormField
+              title="Email"
+              value={resetEmail}
+              handleChangeText={setResetEmail}
+              otherStyles="w-full mb-6"
+              placeholder="Enter your email"
+            />
+            <CustomButton
+              title="Send Reset Email"
+              handlePress={handlePasswordResetRequest}
+              isLoading={resetLoading}
+              color="brown"
+            />
+            <TouchableOpacity
+              onPress={() => {
+                setShowResetModal(false);
+                setResetEmail("");
+              }}
+              className="mt-5"
+            >
+              <Text className="text-center text-red-700 font-DMSans text-base">Cancel</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -213,11 +130,13 @@ const SignInPage = () => {
               placeholder="Enter your password....."
             />
             {/* Forgot Password Link */}
-            <TouchableOpacity onPress={() => setShowResetModal(true)}>
-              <Text className="text-right text-blue-700 font-DMSans mt-2 mb-2" style={{ fontSize: RFValue(14) }}>
-                Forgot your password?
-              </Text>
-            </TouchableOpacity>
+            <Text
+              className="text-right text-blue-700 font-DMSans mt-2 mb-2"
+              style={{ fontSize: RFValue(14) }}
+              onPress={() => setShowResetModal(true)}
+            >
+              Forgot your password?
+            </Text>
             <CustomButton
               title="Sign In"
               handlePress={submit}
